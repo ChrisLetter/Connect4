@@ -6,7 +6,7 @@ function LandingPage() {
     <Flex
       align="center"
       justify="center"
-      minH="100vh"
+      minH="85vh"
       bg="teal.400"
       color="white"
     >
