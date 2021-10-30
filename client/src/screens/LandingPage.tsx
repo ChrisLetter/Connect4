@@ -7,6 +7,9 @@ function LandingPage() {
   function clickLocal() {
     history.push('/local');
   }
+  function clickOnline() {
+    history.push('/online');
+  }
 
   return (
     <Flex
@@ -26,7 +29,13 @@ function LandingPage() {
         >
           Play Locally
         </Button>
-        <Button colorScheme="blackAlpha" size="lg" color="white" boxShadow="lg">
+        <Button
+          colorScheme="blackAlpha"
+          size="lg"
+          color="white"
+          boxShadow="lg"
+          onClick={() => clickOnline()}
+        >
           Play Online
         </Button>
       </Stack>
