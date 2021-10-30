@@ -1,8 +1,15 @@
+import { BrowserRouter, Switch, Route } from 'react-router-dom';
+import LandingPage from './screens/LandingPage';
+
 function App() {
   return (
-    <div>
-      <h1>React App Working</h1>
-    </div>
+    <BrowserRouter>
+      <Switch>
+        <Route path="/">
+          <LandingPage />
+        </Route>
+      </Switch>
+    </BrowserRouter>
   );
 }
 
