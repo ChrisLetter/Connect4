@@ -1,14 +1,20 @@
 import { BrowserRouter, Switch, Route } from 'react-router-dom';
-import LandingPage from './screens/LandingPage';
 import Header from './components/Header';
+import LandingPage from './screens/LandingPage';
+import Local from './screens/Local';
 
 function App() {
   return (
     <BrowserRouter>
       <Header />
       <Switch>
-        <Route path="/">
+        <Route path="/landing">
           <LandingPage />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/local">
+          <Local />
         </Route>
       </Switch>
     </BrowserRouter>

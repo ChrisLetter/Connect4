@@ -1,7 +1,13 @@
 import React from 'react';
-import { Flex } from '@chakra-ui/react';
+import { useHistory } from 'react-router-dom';
+import { Flex, Stack, Button } from '@chakra-ui/react';
 
 function LandingPage() {
+  const history = useHistory();
+  function clickLocal() {
+    history.push('/local');
+  }
+
   return (
     <Flex
       align="center"
@@ -10,7 +16,20 @@ function LandingPage() {
       bg="teal.400"
       color="white"
     >
-      React App Working
+      <Stack spacing={5} direction="column" align="center">
+        <Button
+          colorScheme="blackAlpha"
+          size="lg"
+          color="white"
+          boxShadow="lg"
+          onClick={() => clickLocal()}
+        >
+          Play Locally
+        </Button>
+        <Button colorScheme="blackAlpha" size="lg" color="white" boxShadow="lg">
+          Play Online
+        </Button>
+      </Stack>
     </Flex>
   );
 }
