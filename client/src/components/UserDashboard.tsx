@@ -50,7 +50,8 @@ function UserDashboard(props: any) {
         p={4}
         color="white"
         boxShadow="md"
-      ></Box>
+      >
+      </Box>
     </Flex>
   );
 }

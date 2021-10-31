@@ -19,9 +19,10 @@ function Column(props: any) {
   return (
     <Grid
       templateRows="repeat(6, 1fr)"
-      _hover={{ bg: 'teal.400' }}
+      _hover={{ bg: 'teal.200' }}
       p="1vw"
       gap="2vw"
+      borderRadius="md"
       onClick={() => {
         props.clicked();
       }}

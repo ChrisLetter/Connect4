@@ -1,4 +1,5 @@
 import { Flex, Grid } from '@chakra-ui/react';
+import { TriangleDownIcon } from '@chakra-ui/icons';
 import Column from '../components/Column';
 import UserDashboard from '../components/UserDashboard';
 import { useState } from 'react';
@@ -53,8 +54,17 @@ function Local() {
 
   return (
     <Flex align="center" justify="space-evenly" minH="85vh" bg="teal.400">
-      <UserDashboard player="1" />
-      <Grid templateColumns="repeat(7, 1fr)" borderRadius="lg" bg="teal.900">
+      <Flex direction="column" align="center">
+        <TriangleDownIcon
+          pb="2vh"
+          w="5vh"
+          h="5vh"
+          color="black"
+          visibility={whoseTurn === '1' ? 'visible' : 'hidden'}
+        />
+        <UserDashboard player="1" />
+      </Flex>
+      <Grid templateColumns="repeat(7, 1fr)" borderRadius="lg" bg="teal.400">
         <Column clicked={() => clicked('1')} key={'1'} values={row1} />
         <Column clicked={() => clicked('2')} key={'2'} values={row2} />
         <Column clicked={() => clicked('3')} key={'3'} values={row3} />
@@ -63,7 +73,16 @@ function Local() {
         <Column clicked={() => clicked('6')} key={'6'} values={row6} />
         <Column clicked={() => clicked('7')} key={'7'} values={row7} />
       </Grid>
-      <UserDashboard player="2" />
+      <Flex direction="column" align="center">
+        <TriangleDownIcon
+          pb="2vh"
+          w="5vh"
+          h="5vh"
+          color="black"
+          visibility={whoseTurn === '2' ? 'visible' : 'hidden'}
+        />
+        <UserDashboard player="2" />
+      </Flex>
     </Flex>
   );
 }
