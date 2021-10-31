@@ -44,6 +44,14 @@ function FormPlayersNameLocal() {
               duration: 5000,
               isClosable: true,
             });
+          } else if (playerOneColour === playerTwoColour) {
+            toast({
+              title: 'Error',
+              description: 'You must select two different colours',
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+            });
           } else {
             const userChoices: IPlayersInfo = {
               playerOneName,
