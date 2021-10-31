@@ -1,4 +1,4 @@
-export interface PlayersInfo {
+export interface IPlayersInfo {
   playerOneName: string;
   playerOneColour: string;
   playerTwoName: string;

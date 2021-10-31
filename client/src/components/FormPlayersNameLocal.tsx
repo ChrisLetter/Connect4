@@ -1,5 +1,4 @@
 import {
-  Box,
   FormControl,
   Button,
   Input,
@@ -8,18 +7,24 @@ import {
   Heading,
 } from '@chakra-ui/react';
 import { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { IPlayersInfo } from './../interfaces/interfaces';
 
 function FormPlayersNameLocal() {
-  const [PlayerOneName, setPlayerOneName] = useState('');
-  const [PlayerOneColour, setPlayerOneColour] = useState('');
-  const [PlayerTwoName, setPlayerTwoName] = useState('');
-  const [PlayerTwoColour, setPlayerTwoColour] = useState('');
+  const [playerOneName, setPlayerOneName] = useState('');
+  const [playerOneColour, setPlayerOneColour] = useState('');
+  const [playerTwoName, setPlayerTwoName] = useState('');
+  const [playerTwoColour, setPlayerTwoColour] = useState('');
+  const dispatch = useDispatch();
 
   function onSubmit() {
-    console.log('PlayerOneName', PlayerOneName);
-    console.log('PlayerOneColour', PlayerOneColour);
-    console.log('PlayerTwoName', PlayerTwoName);
-    console.log('PlayerTwoColour', PlayerTwoColour);
+    const userChoices: IPlayersInfo = {
+      playerOneName,
+      playerOneColour,
+      playerTwoName,
+      playerTwoColour,
+    };
+    dispatch({ type: 'PLAYERSINFO', payload: { ...userChoices } });
   }
 
   return (
@@ -37,7 +42,7 @@ function FormPlayersNameLocal() {
           </Heading>
           <FormControl id="first-name" colorScheme="teal" isRequired pb="3vh">
             <Input
-              value={PlayerOneName}
+              value={playerOneName}
               onChange={(e) => setPlayerOneName(e.target.value)}
               boxShadow="lg"
               placeholder="Name Player 1"
@@ -51,7 +56,7 @@ function FormPlayersNameLocal() {
             borderColor="gray.200"
             color="gray.600"
             placeholder="Select a Colour"
-            value={PlayerOneColour}
+            value={playerOneColour}
             onChange={(e) => setPlayerOneColour(e.target.value)}
           >
             <option value="red">Red</option>
@@ -75,7 +80,7 @@ function FormPlayersNameLocal() {
           </Heading>
           <FormControl id="first-name" colorScheme="teal" isRequired pb="3vh">
             <Input
-              value={PlayerTwoName}
+              value={playerTwoName}
               onChange={(e) => setPlayerTwoName(e.target.value)}
               placeholder="Name Player 2"
               color="gray.600"
@@ -90,7 +95,7 @@ function FormPlayersNameLocal() {
             borderColor="gray.200"
             color="gray.600"
             placeholder="Select a Colour"
-            value={PlayerTwoColour}
+            value={playerTwoColour}
             onChange={(e) => setPlayerTwoColour(e.target.value)}
           >
             <option value="red">Red</option>

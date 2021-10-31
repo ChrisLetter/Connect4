@@ -1,12 +1,12 @@
-import { PlayersInfo } from './../interfaces/interfaces';
+import { IPlayersInfo } from './../interfaces/interfaces';
 
-export type PlayersInfoAction = {
+export type playersInfoAction = {
   type: 'PLAYERSINFO';
-  payload: PlayersInfo;
+  payload: IPlayersInfo;
 };
 
 export function saveUsersInfo(
-  usersSelections: PlayersInfo,
-): PlayersInfoAction {
+  usersSelections: IPlayersInfo,
+): playersInfoAction {
   return { type: 'PLAYERSINFO', payload: usersSelections };
 }

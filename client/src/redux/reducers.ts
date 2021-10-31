@@ -1,14 +1,14 @@
-import { PlayersInfoAction } from './actions';
-import { PlayersInfo } from './../interfaces/interfaces';
+import { playersInfoAction } from './actions';
+import { IPlayersInfo } from './../interfaces/interfaces';
 
-const initialState: PlayersInfo = {
+const initialState: IPlayersInfo = {
   playerOneName: '',
   playerOneColour: '',
   playerTwoName: '',
   playerTwoColour: '',
 };
 
-const reducer = (state = initialState, action: PlayersInfoAction) => {
+const reducer = (state = initialState, action: playersInfoAction) => {
   switch (action.type) {
     case 'PLAYERSINFO':
       return {
