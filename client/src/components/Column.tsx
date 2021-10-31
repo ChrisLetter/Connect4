@@ -2,8 +2,12 @@ import { Grid, GridItem } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { IPlayersInfo } from './../interfaces/interfaces';
 
-// TODO: change props type
-function Column(props: any) {
+interface IProps {
+  clicked: () => void;
+  values: string[];
+}
+
+function Column(props: IProps) {
   const userInfos = useSelector((state: IPlayersInfo) => {
     return state;
   });

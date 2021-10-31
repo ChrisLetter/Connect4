@@ -2,9 +2,11 @@ import { Flex, Heading, Box } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { IPlayersInfo } from './../interfaces/interfaces';
 
-// TODO: fix props type
+interface IProps {
+  player: string;
+}
 
-function UserDashboard(props: any) {
+function UserDashboard(props: IProps) {
   const userInfos = useSelector((state: IPlayersInfo) => {
     return state;
   });
@@ -50,8 +52,7 @@ function UserDashboard(props: any) {
         p={4}
         color="white"
         boxShadow="md"
-      >
-      </Box>
+      ></Box>
     </Flex>
   );
 }
