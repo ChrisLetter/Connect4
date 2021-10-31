@@ -1,6 +1,6 @@
 const helperFunc: { [key: string]: any } = {};
 
-helperFunc.updateRow = (oldArr: string[], player: string): string[] => {
+helperFunc.updateColumn = (oldArr: string[], player: string): string[] => {
   const newArr: string[] = [];
   let encounteredFirstZero = false;
   for (let el of oldArr) {
@@ -12,6 +12,10 @@ helperFunc.updateRow = (oldArr: string[], player: string): string[] => {
     }
   }
   return newArr;
+};
+
+helperFunc.checkIfColumnHasSpace = (arr: string[]): boolean => {
+  return arr[5] === '0' ? true : false;
 };
 
 export default helperFunc;
