@@ -17,41 +17,105 @@ function Local() {
   const [whoseTurn, setWhoseTurn] = useState('1');
 
   function clicked(whichColumn: string) {
+    let winner = '0';
     let actionWasPossible = false;
     if (whichColumn === '1' && helperFunc.checkIfColumnHasSpace(column1)) {
       const newArr = helperFunc.updateColumn(column1, whoseTurn);
       setColumn1(newArr);
       actionWasPossible = true;
+      winner = helperFunc.checkForWinner(
+        newArr,
+        column2,
+        column3,
+        column4,
+        column5,
+        column6,
+        column7,
+      );
     }
     if (whichColumn === '2' && helperFunc.checkIfColumnHasSpace(column2)) {
       const newArr = helperFunc.updateColumn(column2, whoseTurn);
       setColumn2(newArr);
       actionWasPossible = true;
+      winner = helperFunc.checkForWinner(
+        column1,
+        newArr,
+        column3,
+        column4,
+        column5,
+        column6,
+        column7,
+      );
     }
     if (whichColumn === '3' && helperFunc.checkIfColumnHasSpace(column3)) {
       const newArr = helperFunc.updateColumn(column3, whoseTurn);
       setColumn3(newArr);
       actionWasPossible = true;
+      winner = helperFunc.checkForWinner(
+        column1,
+        column2,
+        newArr,
+        column4,
+        column5,
+        column6,
+        column7,
+      );
     }
     if (whichColumn === '4' && helperFunc.checkIfColumnHasSpace(column4)) {
       const newArr = helperFunc.updateColumn(column4, whoseTurn);
       setColumn4(newArr);
       actionWasPossible = true;
+      winner = helperFunc.checkForWinner(
+        column1,
+        column2,
+        column3,
+        newArr,
+        column5,
+        column6,
+        column7,
+      );
     }
     if (whichColumn === '5' && helperFunc.checkIfColumnHasSpace(column5)) {
       const newArr = helperFunc.updateColumn(column5, whoseTurn);
       setColumn5(newArr);
       actionWasPossible = true;
+      winner = helperFunc.checkForWinner(
+        column1,
+        column2,
+        column3,
+        column4,
+        newArr,
+        column6,
+        column7,
+      );
     }
     if (whichColumn === '6' && helperFunc.checkIfColumnHasSpace(column6)) {
       const newArr = helperFunc.updateColumn(column6, whoseTurn);
       setColumn6(newArr);
       actionWasPossible = true;
+      winner = helperFunc.checkForWinner(
+        column1,
+        column2,
+        column3,
+        column4,
+        column5,
+        newArr,
+        column7,
+      );
     }
     if (whichColumn === '7' && helperFunc.checkIfColumnHasSpace(column7)) {
       const newArr = helperFunc.updateColumn(column7, whoseTurn);
       setColumn7(newArr);
       actionWasPossible = true;
+      winner = helperFunc.checkForWinner(
+        column1,
+        column2,
+        column3,
+        column4,
+        column5,
+        column6,
+        newArr,
+      );
     }
     if (whoseTurn === '1' && actionWasPossible) {
       setWhoseTurn('2');

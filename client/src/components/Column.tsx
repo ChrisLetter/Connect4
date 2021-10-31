@@ -31,8 +31,8 @@ function Column(props: any) {
         colSpan={1}
         bg={whichColour(values[5])}
         borderRadius="md"
-        w="8vh"
-        h="8vh"
+        w="5vw"
+        h="5vw"
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -42,8 +42,8 @@ function Column(props: any) {
         colSpan={1}
         bg={whichColour(values[4])}
         borderRadius="md"
-        w="8vh"
-        h="8vh"
+        w="5vw"
+        h="5vw"
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -53,8 +53,8 @@ function Column(props: any) {
         colSpan={1}
         bg={whichColour(values[3])}
         borderRadius="md"
-        w="8vh"
-        h="8vh"
+        w="5vw"
+        h="5vw"
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -64,8 +64,8 @@ function Column(props: any) {
         colSpan={1}
         bg={whichColour(values[2])}
         borderRadius="md"
-        w="8vh"
-        h="8vh"
+        w="5vw"
+        h="5vw"
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -75,8 +75,8 @@ function Column(props: any) {
         colSpan={1}
         bg={whichColour(values[1])}
         borderRadius="md"
-        w="8vh"
-        h="8vh"
+        w="5vw"
+        h="5vw"
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -86,8 +86,8 @@ function Column(props: any) {
         colSpan={1}
         bg={whichColour(values[0])}
         borderRadius="md"
-        w="8vh"
-        h="8vh"
+        w="5vw"
+        h="5vw"
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
