@@ -14,7 +14,7 @@ function Local() {
   };
 
   return (
-    <Flex align="center" justify="center" minH="85vh" bg="teal.400">
+    <Flex align="center" justify="space-evenly" minH="85vh" bg="teal.400">
       <UserDashboard player="1" />
       <Grid templateColumns="repeat(7, 1fr)" gap={7}>
         {row.map((col) => (
