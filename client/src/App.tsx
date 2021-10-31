@@ -4,6 +4,7 @@ import LandingPage from './screens/LandingPage';
 import Local from './screens/Local';
 import Online from './screens/Online';
 import SelectPlayersNameLocal from './screens/SelectPlayersNameLocal';
+import WaitingRoomOnline from './screens/WaitingRoomOnline';
 
 function App() {
   return (
@@ -22,6 +23,11 @@ function App() {
       <Switch>
         <Route path="/local">
           <Local />
+        </Route>
+      </Switch>
+      <Switch>
+        <Route path="/waiting-room">
+          <WaitingRoomOnline />
         </Route>
       </Switch>
       <Switch>

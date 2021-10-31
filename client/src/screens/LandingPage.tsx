@@ -8,7 +8,7 @@ function LandingPage() {
     history.push('/select-players-local');
   }
   function clickOnline() {
-    history.push('/online');
+    history.push('/waiting-room');
   }
 
   return (

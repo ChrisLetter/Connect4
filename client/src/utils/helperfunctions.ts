@@ -194,10 +194,10 @@ function checkIfLineHas4(arr: string[]) {
     if (arr[i] !== '0') {
       if (currentNumber === arr[i]) {
         counter++;
-        counter === 3 ? (winner = arr[i]) : (winner = '0');
+        counter === 4 ? (winner = arr[i]) : (winner = '0');
       } else {
         currentNumber = arr[i];
-        counter = 0;
+        counter = 1;
       }
     } else {
       currentNumber = '0';
