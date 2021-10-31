@@ -22,7 +22,6 @@ function LandingPage() {
       <Stack spacing={5} direction="column" align="center">
         <Button
           colorScheme="blackAlpha"
-          size="lg"
           color="white"
           boxShadow="lg"
           onClick={() => clickLocal()}
@@ -31,7 +30,6 @@ function LandingPage() {
         </Button>
         <Button
           colorScheme="blackAlpha"
-          size="lg"
           color="white"
           boxShadow="lg"
           onClick={() => clickOnline()}
