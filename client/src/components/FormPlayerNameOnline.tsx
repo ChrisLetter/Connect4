@@ -1,6 +1,8 @@
 import React from 'react';
 import { Flex, FormControl, Input, Select } from '@chakra-ui/react';
 import { useState } from 'react';
+import { io } from 'socket.io-client';
+const socket = io('http://localhost:5000/');
 
 function FormPlayerNameOnline() {
   const [userName, setUserName] = useState('');
