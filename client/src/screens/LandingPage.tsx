@@ -5,7 +5,7 @@ import { Flex, Stack, Button } from '@chakra-ui/react';
 function LandingPage() {
   const history = useHistory();
   function clickLocal() {
-    history.push('/local');
+    history.push('/select-players-local');
   }
   function clickOnline() {
     history.push('/online');
