@@ -1,8 +1,22 @@
-import { Flex, Grid } from '@chakra-ui/react';
+import {
+  Flex,
+  Grid,
+  Modal,
+  ModalOverlay,
+  ModalContent,
+  ModalHeader,
+  ModalFooter,
+  ModalBody,
+  ModalCloseButton,
+  useDisclosure,
+  Button,
+  Box,
+} from '@chakra-ui/react';
+import React from 'react';
 import { TriangleDownIcon } from '@chakra-ui/icons';
 import Column from '../components/Column';
 import UserDashboard from '../components/UserDashboard';
-import { useState } from 'react';
+import { useState, useEffect, useRef } from 'react';
 import helperFunc from '../utils/helperfunctions';
 
 function Local() {
@@ -15,106 +29,120 @@ function Local() {
   const [column6, setColumn6] = useState(initialState);
   const [column7, setColumn7] = useState(initialState);
   const [whoseTurn, setWhoseTurn] = useState('1');
+  const [winner, setWinner] = useState('0');
 
   function clicked(whichColumn: string) {
-    let winner = '0';
     let actionWasPossible = false;
     if (whichColumn === '1' && helperFunc.checkIfColumnHasSpace(column1)) {
       const newArr = helperFunc.updateColumn(column1, whoseTurn);
       setColumn1(newArr);
       actionWasPossible = true;
-      winner = helperFunc.checkForWinner(
-        newArr,
-        column2,
-        column3,
-        column4,
-        column5,
-        column6,
-        column7,
+      setWinner(
+        helperFunc.checkForWinner(
+          newArr,
+          column2,
+          column3,
+          column4,
+          column5,
+          column6,
+          column7,
+        ),
       );
     }
     if (whichColumn === '2' && helperFunc.checkIfColumnHasSpace(column2)) {
       const newArr = helperFunc.updateColumn(column2, whoseTurn);
       setColumn2(newArr);
       actionWasPossible = true;
-      winner = helperFunc.checkForWinner(
-        column1,
-        newArr,
-        column3,
-        column4,
-        column5,
-        column6,
-        column7,
+      setWinner(
+        helperFunc.checkForWinner(
+          column1,
+          newArr,
+          column3,
+          column4,
+          column5,
+          column6,
+          column7,
+        ),
       );
     }
     if (whichColumn === '3' && helperFunc.checkIfColumnHasSpace(column3)) {
       const newArr = helperFunc.updateColumn(column3, whoseTurn);
       setColumn3(newArr);
       actionWasPossible = true;
-      winner = helperFunc.checkForWinner(
-        column1,
-        column2,
-        newArr,
-        column4,
-        column5,
-        column6,
-        column7,
+      setWinner(
+        helperFunc.checkForWinner(
+          column1,
+          column2,
+          newArr,
+          column4,
+          column5,
+          column6,
+          column7,
+        ),
       );
     }
     if (whichColumn === '4' && helperFunc.checkIfColumnHasSpace(column4)) {
       const newArr = helperFunc.updateColumn(column4, whoseTurn);
       setColumn4(newArr);
       actionWasPossible = true;
-      winner = helperFunc.checkForWinner(
-        column1,
-        column2,
-        column3,
-        newArr,
-        column5,
-        column6,
-        column7,
+      setWinner(
+        helperFunc.checkForWinner(
+          column1,
+          column2,
+          column3,
+          newArr,
+          column5,
+          column6,
+          column7,
+        ),
       );
     }
     if (whichColumn === '5' && helperFunc.checkIfColumnHasSpace(column5)) {
       const newArr = helperFunc.updateColumn(column5, whoseTurn);
       setColumn5(newArr);
       actionWasPossible = true;
-      winner = helperFunc.checkForWinner(
-        column1,
-        column2,
-        column3,
-        column4,
-        newArr,
-        column6,
-        column7,
+      setWinner(
+        helperFunc.checkForWinner(
+          column1,
+          column2,
+          column3,
+          column4,
+          newArr,
+          column6,
+          column7,
+        ),
       );
     }
     if (whichColumn === '6' && helperFunc.checkIfColumnHasSpace(column6)) {
       const newArr = helperFunc.updateColumn(column6, whoseTurn);
       setColumn6(newArr);
       actionWasPossible = true;
-      winner = helperFunc.checkForWinner(
-        column1,
-        column2,
-        column3,
-        column4,
-        column5,
-        newArr,
-        column7,
+      setWinner(
+        helperFunc.checkForWinner(
+          column1,
+          column2,
+          column3,
+          column4,
+          column5,
+          newArr,
+          column7,
+        ),
       );
     }
     if (whichColumn === '7' && helperFunc.checkIfColumnHasSpace(column7)) {
       const newArr = helperFunc.updateColumn(column7, whoseTurn);
       setColumn7(newArr);
       actionWasPossible = true;
-      winner = helperFunc.checkForWinner(
-        column1,
-        column2,
-        column3,
-        column4,
-        column5,
-        column6,
-        newArr,
+      setWinner(
+        helperFunc.checkForWinner(
+          column1,
+          column2,
+          column3,
+          column4,
+          column5,
+          column6,
+          newArr,
+        ),
       );
     }
     if (whoseTurn === '1' && actionWasPossible) {
@@ -124,8 +152,43 @@ function Local() {
     }
   }
 
+  function ModalWinner() {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const ref: React.LegacyRef<HTMLButtonElement> = useRef(null);
+
+    //@ts-ignore
+    useEffect(() => {
+      if (ref.current && winner !== '0') ref.current.click();
+    }, []);
+    
+    return (
+      <>
+        <Button onClick={onOpen} ref={ref} position="absolute" visibility="hidden">
+          Trigger modal
+        </Button>
+        {/* <Button>{winner !== '0' ? onOpen : null}</Button> */}
+        <Modal isOpen={isOpen} onClose={onClose}>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader>Modal Title</ModalHeader>
+            <ModalCloseButton />
+            <ModalBody>The winner is</ModalBody>
+
+            <ModalFooter>
+              <Button colorScheme="blue" mr={3} onClick={onClose}>
+                Close
+              </Button>
+              <Button variant="ghost">Secondary Action</Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    );
+  }
+
   return (
     <Flex align="center" justify="space-evenly" minH="85vh" bg="teal.400">
+      <ModalWinner />
       <Flex direction="column" align="center">
         <TriangleDownIcon
           pb="2vh"
