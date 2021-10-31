@@ -1,7 +1,5 @@
 import { Flex, Grid } from '@chakra-ui/react';
 import Column from '../components/Column';
-import { useSelector } from 'react-redux';
-import { IPlayersInfo } from './../interfaces/interfaces';
 import UserDashboard from '../components/UserDashboard';
 import { useState } from 'react';
 import helperFunc from '../utils/helperfunctions';
@@ -56,7 +54,7 @@ function Local() {
   return (
     <Flex align="center" justify="space-evenly" minH="85vh" bg="teal.400">
       <UserDashboard player="1" />
-      <Grid templateColumns="repeat(7, 1fr)" borderRadius="lg" bg="teal.700">
+      <Grid templateColumns="repeat(7, 1fr)" borderRadius="lg" bg="teal.900">
         <Column clicked={() => clicked('1')} key={'1'} values={row1} />
         <Column clicked={() => clicked('2')} key={'2'} values={row2} />
         <Column clicked={() => clicked('3')} key={'3'} values={row3} />
