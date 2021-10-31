@@ -5,6 +5,7 @@ import {
   Select,
   Flex,
   Heading,
+  useToast,
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
@@ -19,15 +20,45 @@ function FormPlayersNameLocal() {
   const dispatch = useDispatch();
   const history = useHistory();
 
-  function onSubmit() {
-    const userChoices: IPlayersInfo = {
-      playerOneName,
-      playerOneColour,
-      playerTwoName,
-      playerTwoColour,
-    };
-    dispatch({ type: 'PLAYERSINFO', payload: { ...userChoices } });
-    history.push('/local');
+  function PlayButton() {
+    const toast = useToast();
+    return (
+      <Button
+        colorScheme="blackAlpha"
+        color="white"
+        boxShadow="lg"
+        mt={4}
+        width="10vw"
+        type="submit"
+        onClick={() => {
+          if (
+            !playerOneName ||
+            !playerTwoName ||
+            !playerOneColour ||
+            !playerTwoColour
+          ) {
+            toast({
+              title: 'Error',
+              description: 'Please fill all the inputs',
+              status: 'error',
+              duration: 5000,
+              isClosable: true,
+            });
+          } else {
+            const userChoices: IPlayersInfo = {
+              playerOneName,
+              playerOneColour,
+              playerTwoName,
+              playerTwoColour,
+            };
+            dispatch({ type: 'PLAYERSINFO', payload: { ...userChoices } });
+            history.push('/local');
+          }
+        }}
+      >
+        Play
+      </Button>
+    );
   }
 
   return (
@@ -111,17 +142,7 @@ function FormPlayersNameLocal() {
           </Select>
         </Flex>
       </Flex>
-      <Button
-        colorScheme="blackAlpha"
-        color="white"
-        boxShadow="lg"
-        mt={4}
-        width="10vw"
-        type="submit"
-        onClick={onSubmit}
-      >
-        Play
-      </Button>
+      <PlayButton />
     </Flex>
   );
 }
