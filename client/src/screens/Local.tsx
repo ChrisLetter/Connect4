@@ -6,11 +6,9 @@ import {
   ModalContent,
   ModalHeader,
   ModalFooter,
-  ModalBody,
   ModalCloseButton,
   useDisclosure,
   Button,
-  Box,
 } from '@chakra-ui/react';
 import React from 'react';
 import { TriangleDownIcon } from '@chakra-ui/icons';
@@ -18,8 +16,13 @@ import Column from '../components/Column';
 import UserDashboard from '../components/UserDashboard';
 import { useState, useEffect, useRef } from 'react';
 import helperFunc from '../utils/helperfunctions';
+import { useSelector } from 'react-redux';
+import { IPlayersInfo } from './../interfaces/interfaces';
 
 function Local() {
+  const userInfos = useSelector((state: IPlayersInfo) => {
+    return state;
+  });
   const initialState = ['0', '0', '0', '0', '0', '0'];
   const [column1, setColumn1] = useState(initialState);
   const [column2, setColumn2] = useState(initialState);
@@ -150,35 +153,93 @@ function Local() {
     } else if (whoseTurn === '2' && actionWasPossible) {
       setWhoseTurn('1');
     }
+    const movesAvailable = checkIfThereAreMovesAvailable(
+      column1,
+      column2,
+      column3,
+      column4,
+      column5,
+      column6,
+      column7,
+    );
+    if (!movesAvailable) {
+      resetGame();
+    }
+  }
+
+  function checkIfThereAreMovesAvailable(
+    col1: string[],
+    col2: string[],
+    col3: string[],
+    col4: string[],
+    col5: string[],
+    col6: string[],
+    col7: string[],
+  ) {
+    if (
+      !col1.includes('0') &&
+      !col2.includes('0') &&
+      !col3.includes('0') &&
+      !col4.includes('0') &&
+      !col5.includes('0') &&
+      !col6.includes('0') &&
+      !col7.includes('0')
+    ) {
+      return false;
+    }
+    return true;
+  }
+
+  function resetGame() {
+    setColumn1(initialState);
+    setColumn2(initialState);
+    setColumn3(initialState);
+    setColumn4(initialState);
+    setColumn5(initialState);
+    setColumn6(initialState);
+    setColumn7(initialState);
+    setWinner('0');
   }
 
   function ModalWinner() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const ref: React.LegacyRef<HTMLButtonElement> = useRef(null);
 
-    //@ts-ignore
     useEffect(() => {
       if (ref.current && winner !== '0') ref.current.click();
     }, []);
-    
+
     return (
       <>
-        <Button onClick={onOpen} ref={ref} position="absolute" visibility="hidden">
+        <Button
+          onClick={onOpen}
+          ref={ref}
+          position="absolute"
+          visibility="hidden"
+        >
           Trigger modal
         </Button>
-        {/* <Button>{winner !== '0' ? onOpen : null}</Button> */}
-        <Modal isOpen={isOpen} onClose={onClose}>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
           <ModalOverlay />
           <ModalContent>
-            <ModalHeader>Modal Title</ModalHeader>
+            <ModalHeader textAlign="center">
+              {'Winner: '}
+              {winner === '1'
+                ? userInfos.playerOneName
+                : userInfos.playerTwoName}
+            </ModalHeader>
             <ModalCloseButton />
-            <ModalBody>The winner is</ModalBody>
-
-            <ModalFooter>
-              <Button colorScheme="blue" mr={3} onClick={onClose}>
-                Close
+            <ModalFooter justifyContent="center">
+              <Button
+                colorScheme="teal"
+                mr={3}
+                onClick={() => {
+                  onClose();
+                  resetGame();
+                }}
+              >
+                Play Again
               </Button>
-              <Button variant="ghost">Secondary Action</Button>
             </ModalFooter>
           </ModalContent>
         </Modal>
