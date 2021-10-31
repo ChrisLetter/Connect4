@@ -8,6 +8,7 @@ import {
 } from '@chakra-ui/react';
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
+import { useHistory } from 'react-router-dom';
 import { IPlayersInfo } from './../interfaces/interfaces';
 
 function FormPlayersNameLocal() {
@@ -16,6 +17,7 @@ function FormPlayersNameLocal() {
   const [playerTwoName, setPlayerTwoName] = useState('');
   const [playerTwoColour, setPlayerTwoColour] = useState('');
   const dispatch = useDispatch();
+  const history = useHistory();
 
   function onSubmit() {
     const userChoices: IPlayersInfo = {
@@ -25,6 +27,7 @@ function FormPlayersNameLocal() {
       playerTwoColour,
     };
     dispatch({ type: 'PLAYERSINFO', payload: { ...userChoices } });
+    history.push('/local');
   }
 
   return (

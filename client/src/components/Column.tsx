@@ -1,5 +1,7 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 
+
+// TODO: change props type
 function Column(props: any) {
   const arr = ['1', '2', '3', '4', '5', '6'];
 
