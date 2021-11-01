@@ -1,6 +1,8 @@
 import * as express from 'express';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { createServer } from 'http';
+import { DefaultEventsMap } from 'socket.io/dist/typed-events';
+import { IRoom } from './interfaces/interfaces';
 
 require('dotenv').config();
 
@@ -16,12 +18,52 @@ const io = new Server(httpServer, {
 
 const roomsList: string[] = ['test', 'test2'];
 
+const playerJoin = (
+  socket: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>,
+  room: IRoom,
+) => {
+  socket.join(room.id, () => {
+    socket.roomId = room.id;
+    console.log(
+      `Player ${socket.id} with username ${socket.username} joined  room ${room.id}`,
+    );
+  });
+  room.sockets.push([socket.id, socket.username]);
+
+  socket.emit('joinedRoom', room);
+};
+
 io.on('connection', (socket) => {
   console.log(`a user connected with this id: ${socket.id}`);
   io.emit('roomList', roomsList);
 
   socket.on('getRooms', () => {
     socket.emit('roomList', roomsList);
+  });
+
+  socket.on('createRoom', (room: string, userName: string) => {
+    const newRoom = {
+      id: room,
+      name: room,
+      player1: userName,
+      player2: '',
+      game: {
+        currentTurn: '1',
+        winner: '0',
+        moves: 0,
+        column1: ['0', '0', '0', '0', '0', '0'],
+        column2: ['0', '0', '0', '0', '0', '0'],
+        column3: ['0', '0', '0', '0', '0', '0'],
+        column4: ['0', '0', '0', '0', '0', '0'],
+        column5: ['0', '0', '0', '0', '0', '0'],
+        column6: ['0', '0', '0', '0', '0', '0'],
+        column7: ['0', '0', '0', '0', '0', '0'],
+      },
+    };
+
+    playerJoin(socket, newRoom);
+    roomsList.push(room);
+    io.emit('roomList', roomsList);
   });
 });
 
