@@ -1,11 +1,26 @@
+import * as express from 'express';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
+
+const session = require('express-session');
 
 require('dotenv').config();
 
 const PORT = process.env.PORT || 6000;
+const app = express();
+const httpServer = createServer(app);
 
-const httpServer = createServer();
+// In this way I don't assign to the user a new socket.id
+// every time that it navigates to another page
+const sessionMiddleware = session({
+  secret: 'keyboard cat',
+  cookie: { maxAge: 60000 },
+  resave: true,
+  saveUninitialized: true,
+});
+
+app.use(sessionMiddleware);
+
 const io = new Server(httpServer, {
   cors: {
     origin: '*',
