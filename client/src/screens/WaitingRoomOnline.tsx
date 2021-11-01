@@ -1,19 +1,12 @@
-import { useState, useEffect } from 'react';
-import {
-  FormControl,
-  Button,
-  Input,
-  Flex,
-  Heading,
-  useToast,
-} from '@chakra-ui/react';
-import socket from '../services/socketConnection';
-import { useHistory } from 'react-router-dom';
-import CreateRoom from ',/,,/components/CreateRoom';
+import { useState } from 'react';
+import { FormControl, Button, Input, Flex, useToast } from '@chakra-ui/react';
+import CreateRoom from './../components/CreateRoom';
+import JoinRoom from './../components/JoinRoom';
 
 function WaitingRoomOnline() {
   const toast = useToast();
   const [userName, setUserName] = useState('');
+  const [hasSetUsername, setHasSetUsername] = useState(false);
 
   return (
     <Flex
@@ -23,7 +16,7 @@ function WaitingRoomOnline() {
       minH="85vh"
       bg="teal.400"
     >
-      {!userName ? (
+      {!hasSetUsername ? (
         <Flex direction="column" alignItems="center" width="15vw">
           <FormControl id="first-name" colorScheme="teal" isRequired pb="3vh">
             <Input
@@ -35,9 +28,35 @@ function WaitingRoomOnline() {
               bg="teal.50"
             />
           </FormControl>
+          <Button
+            colorScheme="blackAlpha"
+            color="white"
+            boxShadow="lg"
+            mt={4}
+            width="10vw"
+            type="submit"
+            onClick={() => {
+              if (!userName) {
+                toast({
+                  title: 'Error',
+                  description: 'Enter your username',
+                  status: 'error',
+                  duration: 4000,
+                  isClosable: true,
+                });
+              } else {
+                setHasSetUsername(true);
+              }
+            }}
+          >
+            Continue
+          </Button>
         </Flex>
       ) : (
-        <CreateRoom playerName="userName" />
+        <Flex direction="row" minW="60vw" justifyContent="space-between">
+          <CreateRoom playerName={userName} />
+          <JoinRoom playerName={userName} />
+        </Flex>
       )}
     </Flex>
   );
