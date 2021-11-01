@@ -15,6 +15,7 @@ function JoinRoom(props: { [key: string]: string }) {
   const toast = useToast();
   const [roomName, setRoomName] = useState('');
   const [rooms, setRooms] = useState(['']);
+  const userName = props.playerName;
 
   useEffect(() => {
     socket.emit('getRooms');
@@ -27,8 +28,9 @@ function JoinRoom(props: { [key: string]: string }) {
   }, [roomName]);
 
   const joinRoom = (room: string) => {
+    socket.emit('setUsername', userName);
     socket.emit('joinRoom', room);
-    history.push('/game');
+    history.push('/online');
   };
 
   return (
@@ -89,7 +91,7 @@ function JoinRoom(props: { [key: string]: string }) {
           }
         }}
       >
-        Create Room
+        Join Room
       </Button>
     </Flex>
   );
