@@ -7,6 +7,11 @@ function Online() {
   useEffect(() => {
     socket.on('joinedRoom', function (room: IRoom) {
       console.log('game', room);
+      socket.emit('ready');
+    });
+
+    socket.on('playGame', function (room: IRoom) {
+      console.log('game2', room);
     });
   }, []);
 

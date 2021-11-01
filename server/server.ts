@@ -19,9 +19,8 @@ let roomsList: IRoom[] = [];
 const roomsListName: string[] = [];
 
 const playerJoin = (socket: any, room: IRoom) => {
-  socket.join(room, () => {
-    socket.roomId = room.id;
-  });
+  socket.join(room.id);
+  socket.roomId = room.id;
   socket.emit('joinedRoom', room);
 };
 
@@ -31,9 +30,8 @@ const joinGame = (socket: any, roomName: string) => {
   );
   room.playerTwoName = socket.username;
   room.playerTwoSocketId = socket.id;
-  socket.join(room, () => {
-    socket.roomId = room.id;
-  });
+  socket.join(room.id);
+  socket.roomId = room.id;
   const updatedRooms = roomsList.map((oldRoom) => {
     if (oldRoom.id === roomName) {
       return room;
@@ -42,6 +40,13 @@ const joinGame = (socket: any, roomName: string) => {
   });
   roomsList = updatedRooms;
   socket.emit('joinedRoom', room);
+};
+
+const getRoom = (roomName: string) => {
+  const [room] = roomsList.filter(
+    (roomFromList: IRoom) => roomFromList.id === roomName,
+  );
+  return room;
 };
 
 io.on('connection', (socket: any) => {
@@ -85,6 +90,16 @@ io.on('connection', (socket: any) => {
   socket.on('joinRoom', (room: string) => {
     joinGame(socket, room);
     io.emit('roomList', roomsListName);
+  });
+
+  socket.on('ready', () => {
+    console.log(socket.id, 'is ready');
+    const room: IRoom = getRoom(socket.roomId);
+    console.log(socket.roomId);
+    if (room && room.playerTwoSocketId) {
+      console.log('initialize game');
+      io.in(socket.roomId).emit('playGame', room);
+    }
   });
 });
 
