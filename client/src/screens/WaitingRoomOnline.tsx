@@ -16,9 +16,8 @@ function WaitingRoomOnline() {
   const [rooms, setRooms] = useState(['']);
 
   function createRoom(nameRoom: string, nameUser: string) {
-    socket.emit('createRoom', roomName, userName);
-    console.log(nameRoom);
-    console.log(nameUser);
+    socket.emit('setUsername', userName);
+    socket.emit('createRoom', roomName);
   }
 
   useEffect(() => {
