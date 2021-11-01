@@ -15,24 +15,41 @@ const io = new Server(httpServer, {
   },
 });
 
-const roomsList: string[] = ['test', 'test2'];
+let roomsList: IRoom[] = [];
+const roomsListName: string[] = [];
 
 const playerJoin = (socket: any, room: IRoom) => {
   socket.join(room, () => {
     socket.roomId = room.id;
-    console.log(
-      `Player ${socket.id} with username ${socket.username} joined  room ${room.id}`,
-    );
   });
+  socket.emit('joinedRoom', room);
+};
+
+const joinGame = (socket: any, roomName: string) => {
+  const [room] = roomsList.filter(
+    (roomFromList: IRoom) => roomFromList.id === roomName,
+  );
+  room.playerTwoName = socket.username;
+  room.playerTwoSocketId = socket.id;
+  socket.join(room, () => {
+    socket.roomId = room.id;
+  });
+  const updatedRooms = roomsList.map((oldRoom) => {
+    if (oldRoom.id === roomName) {
+      return room;
+    }
+    return oldRoom;
+  });
+  roomsList = updatedRooms;
   socket.emit('joinedRoom', room);
 };
 
 io.on('connection', (socket: any) => {
   console.log(`a user connected with this id: ${socket.id}`);
-  io.emit('roomList', roomsList);
+  io.emit('roomList', roomsListName);
 
   socket.on('getRooms', () => {
-    socket.emit('roomList', roomsList);
+    socket.emit('roomList', roomsListName);
   });
 
   socket.on('setUsername', (data: string) => {
@@ -59,10 +76,15 @@ io.on('connection', (socket: any) => {
         column7: ['0', '0', '0', '0', '0', '0'],
       },
     };
-
     playerJoin(socket, newRoom);
-    roomsList.push(room);
-    io.emit('roomList', roomsList);
+    roomsList.push(newRoom);
+    roomsListName.push(newRoom.id);
+    io.emit('roomList', roomsListName);
+  });
+
+  socket.on('joinRoom', (room: string) => {
+    joinGame(socket, room);
+    io.emit('roomList', roomsListName);
   });
 });
 
