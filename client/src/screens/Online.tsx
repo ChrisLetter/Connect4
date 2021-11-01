@@ -1,12 +1,12 @@
 import { Heading, Flex } from '@chakra-ui/react';
-import { useState, useEffect } from 'react';
+import { useEffect } from 'react';
 import socket from './../services/socketConnection';
 import { IRoom } from './../interfaces/interfaces';
 
 function Online() {
   useEffect(() => {
     socket.on('joinedRoom', function (room: IRoom) {
-      console.log(room);
+      console.log('game', room);
     });
   }, []);
 

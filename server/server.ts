@@ -24,7 +24,6 @@ const playerJoin = (socket: any, room: IRoom) => {
       `Player ${socket.id} with username ${socket.username} joined  room ${room.id}`,
     );
   });
-  room.sockets.push([socket.id, socket.username]);
   socket.emit('joinedRoom', room);
 };
 
@@ -43,8 +42,10 @@ io.on('connection', (socket: any) => {
   socket.on('createRoom', (room: string) => {
     const newRoom = {
       id: room,
-      name: room,
-      sockets: [],
+      playerOneName: socket.username,
+      playerOneSocketId: socket.id,
+      playerTwoName: '',
+      playerTwoSocketId: '',
       game: {
         currentTurn: '1',
         winner: '0',

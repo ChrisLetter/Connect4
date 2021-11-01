@@ -7,8 +7,10 @@ export interface IPlayersInfo {
 
 export interface IRoom {
   id: string;
-  name: string;
-  sockets: string[][];
+  playerOneName: string;
+  playerOneSocketId: string;
+  playerTwoName: string;
+  playerTwoSocketId: string;
   game: {
     currentTurn: string;
     winner: string;
