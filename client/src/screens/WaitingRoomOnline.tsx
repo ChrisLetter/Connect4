@@ -8,8 +8,10 @@ import {
   useToast,
 } from '@chakra-ui/react';
 import socket from '../services/socketConnection';
+import { useHistory } from 'react-router-dom';
 
 function WaitingRoomOnline() {
+  const history = useHistory();
   const toast = useToast();
   const [roomName, setRoomName] = useState('');
   const [userName, setUserName] = useState('');
@@ -18,12 +20,12 @@ function WaitingRoomOnline() {
   function createRoom(nameRoom: string, nameUser: string) {
     socket.emit('setUsername', userName);
     socket.emit('createRoom', roomName);
+    history.push('/online');
   }
 
   useEffect(() => {
     socket.emit('getRooms');
     socket.on('roomList', (data) => {
-      console.log('rooms', data);
       setRooms(data);
     });
     return () => {
