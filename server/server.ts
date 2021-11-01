@@ -2,23 +2,11 @@ import * as express from 'express';
 import { Server } from 'socket.io';
 import { createServer } from 'http';
 
-const session = require('express-session');
-
 require('dotenv').config();
 
 const PORT = process.env.PORT || 6000;
 const app = express();
 const httpServer = createServer(app);
-
-
-// const sessionMiddleware = session({
-//   secret: 'keyboard cat',
-//   cookie: { maxAge: 60000 },
-//   resave: true,
-//   saveUninitialized: true,
-// });
-
-// app.use(sessionMiddleware);
 
 const io = new Server(httpServer, {
   cors: {
@@ -26,9 +14,15 @@ const io = new Server(httpServer, {
   },
 });
 
+const roomsList: string[] = ['test', 'test2'];
+
 io.on('connection', (socket) => {
-  console.log('a user connected');
-  console.log(socket.id);
+  console.log(`a user connected with this id: ${socket.id}`);
+  io.emit('roomList', roomsList);
+
+  socket.on('getRooms', () => {
+    socket.emit('roomList', roomsList);
+  });
 });
 
 httpServer.listen(PORT, () => {
