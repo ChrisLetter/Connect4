@@ -1,7 +1,6 @@
 import * as express from 'express';
-import { Server, Socket } from 'socket.io';
+import { Server } from 'socket.io';
 import { createServer } from 'http';
-import { DefaultEventsMap } from 'socket.io/dist/typed-events';
 import { IRoom } from './interfaces/interfaces';
 
 require('dotenv').config();
@@ -18,22 +17,18 @@ const io = new Server(httpServer, {
 
 const roomsList: string[] = ['test', 'test2'];
 
-const playerJoin = (
-  socket: Socket<DefaultEventsMap, DefaultEventsMap, DefaultEventsMap>,
-  room: IRoom,
-) => {
-  socket.join(room.id, () => {
+const playerJoin = (socket: any, room: IRoom) => {
+  socket.join(room, () => {
     socket.roomId = room.id;
     console.log(
       `Player ${socket.id} with username ${socket.username} joined  room ${room.id}`,
     );
   });
   room.sockets.push([socket.id, socket.username]);
-
   socket.emit('joinedRoom', room);
 };
 
-io.on('connection', (socket) => {
+io.on('connection', (socket: any) => {
   console.log(`a user connected with this id: ${socket.id}`);
   io.emit('roomList', roomsList);
 
@@ -41,12 +36,15 @@ io.on('connection', (socket) => {
     socket.emit('roomList', roomsList);
   });
 
-  socket.on('createRoom', (room: string, userName: string) => {
+  socket.on('setUsername', (data: string) => {
+    socket.username = data;
+  });
+
+  socket.on('createRoom', (room: string) => {
     const newRoom = {
       id: room,
       name: room,
-      player1: userName,
-      player2: '',
+      sockets: [],
       game: {
         currentTurn: '1',
         winner: '0',

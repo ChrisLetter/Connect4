@@ -1,8 +1,7 @@
 export interface IRoom {
   id: string;
   name: string;
-  player1: string;
-  player2: string;
+  sockets: string[][];
   game: {
     currentTurn: string;
     winner: string;
