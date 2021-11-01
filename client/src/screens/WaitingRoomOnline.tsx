@@ -13,9 +13,10 @@ function WaitingRoomOnline() {
   const toast = useToast();
   const [roomName, setRoomName] = useState('');
   const [userName, setUserName] = useState('');
-  const [rooms, setRooms] = useState([]);
+  const [rooms, setRooms] = useState(['']);
 
   function createRoom(nameRoom: string, nameUser: string) {
+    socket.emit('createRoom', roomName, userName);
     console.log(nameRoom);
     console.log(nameUser);
   }
@@ -26,7 +27,6 @@ function WaitingRoomOnline() {
       console.log('rooms', data);
       setRooms(data);
     });
-
     return () => {
       socket.off('roomList');
     };
@@ -98,6 +98,15 @@ function WaitingRoomOnline() {
                 title: 'Error',
                 description:
                   'Enter your username and choose a name for the room',
+                status: 'error',
+                duration: 4000,
+                isClosable: true,
+              });
+            } else if (rooms.includes(roomName)) {
+              toast({
+                title: 'Error',
+                description:
+                  'The room name is not available, please choose another name',
                 status: 'error',
                 duration: 4000,
                 isClosable: true,
