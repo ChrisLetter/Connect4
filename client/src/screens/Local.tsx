@@ -21,7 +21,7 @@ import { IPlayersInfo } from './../interfaces/interfaces';
 
 function Local() {
   const userInfos = useSelector((state: IPlayersInfo) => {
-    return state; 
+    return state;
   });
   const initialState = ['0', '0', '0', '0', '0', '0'];
   const [column1, setColumn1] = useState(initialState);
