@@ -54,7 +54,13 @@ function WaitingRoomOnline() {
           </Button>
         </Flex>
       ) : (
-        <Flex direction="row" minW="80vw" justifyContent="space-between">
+        <Flex
+          direction={['column', 'column', 'column', 'row']}
+          alignItems="center"
+          minW="80vw"
+          minH="85vh"
+          justifyContent="space-evenly"
+        >
           <CreateRoom playerName={userName} />
           <JoinRoom playerName={userName} />
           <AvailableRooms playerName={userName} />

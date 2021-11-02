@@ -36,7 +36,7 @@ function AvailableRooms(props: { [key: string]: string }) {
     <Flex
       direction="column"
       alignItems="center"
-      width="25vw"
+      width={['70vw', '70vw', '70vw', '25vw']}
       bg="teal.300"
       borderRadius="md"
       p="3vw"
@@ -46,15 +46,15 @@ function AvailableRooms(props: { [key: string]: string }) {
         as="h2"
         size="lg"
         color="white"
-        textAlign={['center', 'center', 'left', 'left']}
-        pb="3vh"
+        textAlign={'center'}
+        pb={['2vh', '2vh', '2vh', '2vh']}
       >
         Join a Stranger
       </Heading>
       <Box
         bg="teal.50"
-        width="20vw"
-        height="12vh"
+        width={['50vw', '50vw', '50vw', '20vw']}
+        height="11.88vh"
         borderRadius="md"
         boxShadow="md"
         color="gray.600"

@@ -37,7 +37,7 @@ function JoinRoom(props: { [key: string]: string }) {
     <Flex
       direction="column"
       alignItems="center"
-      width="25vw"
+      width={['70vw', '70vw', '70vw', '25vw']}
       bg="teal.300"
       borderRadius="md"
       p="3vw"
@@ -47,12 +47,18 @@ function JoinRoom(props: { [key: string]: string }) {
         as="h2"
         size="lg"
         color="white"
-        textAlign={['center', 'center', 'left', 'left']}
-        pb="3vh"
+        textAlign={'center'}
+        pb={['2vh', '2vh', '2vh', '2vh']}
       >
         Join a Friend
       </Heading>
-      <FormControl id="first-name" colorScheme="teal" isRequired pb="3vh">
+      <FormControl
+        id="first-name"
+        colorScheme="teal"
+        isRequired
+        pb={['1vh', '1vh', '1vh', '2vh']}
+        width={['50vw', '50vw', '50vw', '20vw']}
+      >
         <Input
           value={roomName}
           onChange={(e) => setRoomName(e.target.value)}
@@ -66,8 +72,8 @@ function JoinRoom(props: { [key: string]: string }) {
         colorScheme="blackAlpha"
         color="white"
         boxShadow="lg"
-        mt={4}
-        width="10vw"
+        mt={['1vh', '1vh', '1vh', '2vh']}
+        width={['20vw', '20vw', '20vw', '10vw']}
         type="submit"
         onClick={() => {
           if (!roomName) {
