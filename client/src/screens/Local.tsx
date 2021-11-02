@@ -246,9 +246,18 @@ function Local() {
   }
 
   return (
-    <Flex align="center" justify="space-evenly" minH="85vh" bg="teal.400">
+    <Flex
+      align="center"
+      direction={['column', 'column', 'column', 'row']}
+      justify="space-evenly"
+      minH="85vh"
+      bg="teal.400"
+    >
       <ModalWinner />
-      <Flex direction="column" align="center">
+      <Flex
+        direction="column"
+        align="center"
+      >
         <TriangleDownIcon
           pb="2vh"
           w="5vh"
@@ -258,7 +267,12 @@ function Local() {
         />
         <UserDashboard player="1" />
       </Flex>
-      <Grid templateColumns="repeat(7, 1fr)" borderRadius="lg" bg="teal.400">
+      <Grid
+        templateColumns="repeat(7, 1fr)"
+        borderRadius="lg"
+        bg="teal.400"
+        width={['90vw', '80vw', '70vw', '50vw']}
+      >
         <Column clicked={() => clicked('1')} key={'1'} values={column1} />
         <Column clicked={() => clicked('2')} key={'2'} values={column2} />
         <Column clicked={() => clicked('3')} key={'3'} values={column3} />

@@ -24,8 +24,8 @@ function Column(props: IProps) {
     <Grid
       templateRows="repeat(6, 1fr)"
       _hover={{ bg: 'teal.200' }}
-      p="1vw"
-      gap="2vw"
+      p={['0.5vw', '0.5vw', '0.5vw', '1vw']}
+      gap={['1vw', '1vw', '1vw', '2vw']}
       borderRadius="md"
       onClick={() => {
         props.clicked();
@@ -35,8 +35,8 @@ function Column(props: IProps) {
         colSpan={1}
         bg={whichColour(values[5])}
         borderRadius="md"
-        w="5vw"
-        h="5vw"
+        w={['10vw', '9vw', '7vw', '5vw']}
+        h={['10vw', '9vw', '7vw', '5vw']}
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -46,8 +46,8 @@ function Column(props: IProps) {
         colSpan={1}
         bg={whichColour(values[4])}
         borderRadius="md"
-        w="5vw"
-        h="5vw"
+        w={['10vw', '9vw', '7vw', '5vw']}
+        h={['10vw', '9vw', '7vw', '5vw']}
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -57,8 +57,8 @@ function Column(props: IProps) {
         colSpan={1}
         bg={whichColour(values[3])}
         borderRadius="md"
-        w="5vw"
-        h="5vw"
+        w={['10vw', '9vw', '7vw', '5vw']}
+        h={['10vw', '9vw', '7vw', '5vw']}
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -68,8 +68,8 @@ function Column(props: IProps) {
         colSpan={1}
         bg={whichColour(values[2])}
         borderRadius="md"
-        w="5vw"
-        h="5vw"
+        w={['10vw', '9vw', '7vw', '5vw']}
+        h={['10vw', '9vw', '7vw', '5vw']}
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -79,8 +79,8 @@ function Column(props: IProps) {
         colSpan={1}
         bg={whichColour(values[1])}
         borderRadius="md"
-        w="5vw"
-        h="5vw"
+        w={['10vw', '9vw', '7vw', '5vw']}
+        h={['10vw', '9vw', '7vw', '5vw']}
         border="1px"
         boxShadow="md"
         borderColor="gray.200"
@@ -90,8 +90,8 @@ function Column(props: IProps) {
         colSpan={1}
         bg={whichColour(values[0])}
         borderRadius="md"
-        w="5vw"
-        h="5vw"
+        w={['10vw', '9vw', '7vw', '5vw']}
+        h={['10vw', '9vw', '7vw', '5vw']}
         border="1px"
         boxShadow="md"
         borderColor="gray.200"

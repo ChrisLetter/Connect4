@@ -21,23 +21,23 @@ function UserDashboard(props: IProps) {
   };
   return (
     <Flex
+      height={['10vh', '10vh', '10vh', '15vh']}
       direction="column"
       align="center"
       justify="center"
       bg="teal.50"
       borderRadius="md"
-      p="3vh"
+      p={['1vh', '2vh', '2vh', '3vh']}
       boxShadow="lg"
-      maxW="15vw"
-      minW="15vw"
+      width={['65vw', '40vw', '30vw', '15vw']}
     >
       <Heading
         as="h2"
         size="md"
         color="teal.800"
-        textAlign={['center', 'center', 'left', 'left']}
-        pb="3vh"
-        maxW="15vw"
+        textAlign={['center', 'center', 'center', 'center']}
+        pb={['1vh', '1vh', '1vh', '3vh']}
+        width={['65vw', '40vw', '30vw', '15vw']}
         pl="1vw"
         pr="1vw"
       >
@@ -49,7 +49,7 @@ function UserDashboard(props: IProps) {
         borderRadius="md"
         border="1px"
         borderColor="gray.200"
-        p={4}
+        p={['2', '3', '4', '5']}
         color="white"
         boxShadow="md"
       ></Box>

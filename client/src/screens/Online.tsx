@@ -457,12 +457,18 @@ function Online() {
   }
 
   return (
-    <Flex align="center" justify="space-evenly" minH="85vh" bg="teal.400">
+    <Flex align="center" minH="85vh" bg="teal.400" justify="space-evenly">
       <ModalWinner />
       {gameStatus === 'waiting-for-other-user' ? (
         <WaitingForOtherUser roomName={roomName} />
       ) : (
-        <Flex width="100vw" align="center" justify="space-evenly">
+        <Flex
+          width="100vw"
+          minH="85vh"
+          align="center"
+          justify="space-evenly"
+          direction={['column', 'column', 'column', 'row']}
+        >
           <Flex direction="column" align="center">
             <TriangleDownIcon
               pb="2vh"
@@ -477,6 +483,7 @@ function Online() {
             templateColumns="repeat(7, 1fr)"
             borderRadius="lg"
             bg="teal.400"
+            width={['90vw', '80vw', '70vw', '50vw']}
           >
             <Column clicked={() => clicked('1')} key={'1'} values={column1} />
             <Column clicked={() => clicked('2')} key={'2'} values={column2} />
