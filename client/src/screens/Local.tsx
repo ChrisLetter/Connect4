@@ -204,11 +204,9 @@ function Local() {
   function ModalWinner() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const ref: React.LegacyRef<HTMLButtonElement> = useRef(null);
-
     useEffect(() => {
       if (ref.current && winner !== '0') ref.current.click();
     }, []);
-
     return (
       <>
         <Button

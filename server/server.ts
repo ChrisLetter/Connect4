@@ -50,7 +50,6 @@ const getRoom = (roomName: string) => {
 };
 
 io.on('connection', (socket: any) => {
-  console.log(`a user connected with this id: ${socket.id}`);
   io.emit('roomList', roomsListName);
 
   socket.on('getRooms', () => {
@@ -93,13 +92,28 @@ io.on('connection', (socket: any) => {
   });
 
   socket.on('ready', () => {
-    console.log(socket.id, 'is ready');
     const room: IRoom = getRoom(socket.roomId);
-    console.log(socket.roomId);
     if (room && room.playerTwoSocketId) {
-      console.log('initialize game');
       io.in(socket.roomId).emit('playGame', room);
     }
+  });
+
+  socket.on('turn-played', (newRoom: IRoom) => {
+    io.in(socket.roomId).emit('new-turn-info', newRoom);
+  });
+
+  socket.on('we-have-a-winner', (winnerName: string) => {
+    const room: IRoom = getRoom(socket.roomId);
+    room.game.winner = '0';
+    const emptyColumn = ['0', '0', '0', '0', '0', '0'];
+    room.game.column1 = emptyColumn;
+    room.game.column2 = emptyColumn;
+    room.game.column3 = emptyColumn;
+    room.game.column4 = emptyColumn;
+    room.game.column5 = emptyColumn;
+    room.game.column6 = emptyColumn;
+    room.game.column7 = emptyColumn;
+    io.in(socket.roomId).emit('winner-name', winnerName, room);
   });
 });
 
