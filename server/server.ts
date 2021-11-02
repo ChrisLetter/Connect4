@@ -115,6 +115,17 @@ io.on('connection', (socket: any) => {
     room.game.column7 = emptyColumn;
     io.in(socket.roomId).emit('winner-name', winnerName, room);
   });
+
+  socket.on('leaveRoom', (room: IRoom) => {
+    if (room.id) {
+      socket.broadcast.in(room.id).emit('abandonRoom', room);
+      io.of('/').in(room.id).disconnectSockets();
+      roomsList = roomsList.filter(
+        (prevRoom: IRoom) => prevRoom.id !== room.id,
+      );
+    }
+    io.emit('roomList', roomsList);
+  });
 });
 
 httpServer.listen(PORT, () => {

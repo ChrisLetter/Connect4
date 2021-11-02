@@ -19,8 +19,10 @@ import { TriangleDownIcon } from '@chakra-ui/icons';
 import { useDispatch } from 'react-redux';
 import { IPlayersInfo, IRoom } from './../interfaces/interfaces';
 import helperFunc from './../utils/helperFunctions';
+import { useHistory } from 'react-router-dom';
 
 function Online() {
+  const history = useHistory();
   const dispatch = useDispatch();
   const initialStateGame: IRoom = {
     id: '',
@@ -136,6 +138,10 @@ function Online() {
       }
       setWhoseTurn(newInfo.game.currentTurn);
       setCurrentWinner(name);
+    });
+
+    socket.on('abandonRoom', function (room) {
+      history.push('/landing');
     });
   }, []);
 
@@ -377,6 +383,11 @@ function Online() {
     }
   }
 
+  const leaveRoom = () => {
+    socket.emit('leaveRoom', allGameInfo);
+    history.push('/landing');
+  };
+
   function ModalWinner() {
     const { isOpen, onOpen, onClose } = useDisclosure();
     const ref: React.LegacyRef<HTMLButtonElement> = useRef(null);
@@ -403,7 +414,7 @@ function Online() {
             <ModalCloseButton />
             <ModalFooter justifyContent="center">
               <Button
-                colorScheme="teal"
+                colorScheme="green"
                 mr={3}
                 onClick={() => {
                   onClose();
@@ -411,6 +422,16 @@ function Online() {
                 }}
               >
                 Play Again
+              </Button>
+              <Button
+                colorScheme="red"
+                mr={3}
+                onClick={() => {
+                  onClose();
+                  leaveRoom();
+                }}
+              >
+                Exit
               </Button>
             </ModalFooter>
           </ModalContent>
