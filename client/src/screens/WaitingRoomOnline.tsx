@@ -1,5 +1,12 @@
 import { useState } from 'react';
-import { FormControl, Button, Input, Flex, useToast } from '@chakra-ui/react';
+import {
+  FormControl,
+  Button,
+  Input,
+  Flex,
+  useToast,
+  Heading,
+} from '@chakra-ui/react';
 import CreateRoom from './../components/CreateRoom';
 import JoinRoom from './../components/JoinRoom';
 import AvailableRooms from './../components/AvailableRooms';
@@ -18,8 +25,27 @@ function WaitingRoomOnline() {
       bg="teal.400"
     >
       {!hasSetUsername ? (
-        <Flex direction="column" alignItems="center" width="15vw">
-          <FormControl id="first-name" colorScheme="teal" isRequired pb="3vh">
+        <Flex
+          direction="column"
+          alignItems="center"
+          width={['70vw', '70vw', '60vw', '40vw']}
+        >
+          <Heading
+            as="h2"
+            size="lg"
+            color="white"
+            textAlign="center"
+            pb={['4vh', '4vh', '4vh', '4vh']}
+          >
+            Choose an Username
+          </Heading>
+          <FormControl
+            id="first-name"
+            colorScheme="teal"
+            isRequired
+            pb="3vh"
+            width={['40vw', '40vw', '30vw', '15vw']}
+          >
             <Input
               value={userName}
               onChange={(e) => setUserName(e.target.value)}
@@ -34,7 +60,7 @@ function WaitingRoomOnline() {
             color="white"
             boxShadow="lg"
             mt={4}
-            width="10vw"
+            width={['25vw', '25vw', '20vw', '10vw']}
             type="submit"
             onClick={() => {
               if (!userName) {
