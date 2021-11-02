@@ -3,11 +3,14 @@ import { useEffect, useState } from 'react';
 import socket from './../services/socketConnection';
 import { IRoom } from './../interfaces/interfaces';
 import WaitingForOtherUser from './../components/WaitingForOtherUser';
-import UserDashboardOnline from './../components/UserDashBoardOnline';
-import ColumnOnline from '../components/ColumnOnline';
+import UserDashboard from './../components/UserDashboard';
+import Column from '../components/Column';
 import { TriangleDownIcon } from '@chakra-ui/icons';
+import { useDispatch } from 'react-redux';
+import { IPlayersInfo } from './../interfaces/interfaces';
 
 function Online() {
+  const dispatch = useDispatch();
   const [roomName, setRoomName] = useState('');
   const [gameState, setGameState] = useState('');
   const [playerOneName, setPlayerOneName] = useState('');
@@ -31,21 +34,28 @@ function Online() {
       socket.emit('ready');
     });
 
-    function setUsersInfo(room: IRoom) {
-      setPlayerOneName(room.playerOneName);
-      setPlayerTwoName(room.playerTwoName);
-      if (socket.id === room.playerOneSocketId) {
-        setCurrentUserNumber('1');
-      } else {
-        setCurrentUserNumber('2');
-      }
-    }
-
     socket.on('playGame', function (room: IRoom) {
       setGameState('users-connected');
+      const userChoices: IPlayersInfo = {
+        playerOneName: room.playerOneName,
+        playerOneColour: 'purple',
+        playerTwoName: room.playerTwoName,
+        playerTwoColour: 'blue',
+      };
+      dispatch({ type: 'PLAYERSINFO', payload: { ...userChoices } });
       setUsersInfo(room);
     });
   }, []);
+
+  function setUsersInfo(room: IRoom) {
+    setPlayerOneName(room.playerOneName);
+    setPlayerTwoName(room.playerTwoName);
+    if (socket.id === room.playerOneSocketId) {
+      setCurrentUserNumber('1');
+    } else {
+      setCurrentUserNumber('2');
+    }
+  }
 
   function clicked(numberCol: string) {
     console.log(numberCol);
@@ -65,48 +75,20 @@ function Online() {
               color="black"
               visibility={whoseTurn === '1' ? 'visible' : 'hidden'}
             />
-            <UserDashboardOnline player="1" playerName={playerOneName} />
+            <UserDashboard player="1" />
           </Flex>
           <Grid
             templateColumns="repeat(7, 1fr)"
             borderRadius="lg"
             bg="teal.400"
           >
-            <ColumnOnline
-              clicked={() => clicked('1')}
-              key={'1'}
-              values={column1}
-            />
-            <ColumnOnline
-              clicked={() => clicked('2')}
-              key={'2'}
-              values={column2}
-            />
-            <ColumnOnline
-              clicked={() => clicked('3')}
-              key={'3'}
-              values={column3}
-            />
-            <ColumnOnline
-              clicked={() => clicked('4')}
-              key={'4'}
-              values={column4}
-            />
-            <ColumnOnline
-              clicked={() => clicked('5')}
-              key={'5'}
-              values={column5}
-            />
-            <ColumnOnline
-              clicked={() => clicked('6')}
-              key={'6'}
-              values={column6}
-            />
-            <ColumnOnline
-              clicked={() => clicked('7')}
-              key={'7'}
-              values={column7}
-            />
+            <Column clicked={() => clicked('1')} key={'1'} values={column1} />
+            <Column clicked={() => clicked('2')} key={'2'} values={column2} />
+            <Column clicked={() => clicked('3')} key={'3'} values={column3} />
+            <Column clicked={() => clicked('4')} key={'4'} values={column4} />
+            <Column clicked={() => clicked('5')} key={'5'} values={column5} />
+            <Column clicked={() => clicked('6')} key={'6'} values={column6} />
+            <Column clicked={() => clicked('7')} key={'7'} values={column7} />
           </Grid>
           <Flex direction="column" align="center">
             <TriangleDownIcon
@@ -116,7 +98,7 @@ function Online() {
               color="black"
               visibility={whoseTurn === '2' ? 'visible' : 'hidden'}
             />
-            <UserDashboardOnline player="2" playerName={playerTwoName} />
+            <UserDashboard player="2" />
           </Flex>
         </Flex>
       )}
