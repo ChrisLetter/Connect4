@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Flex, Stack, Button } from '@chakra-ui/react';
+import { Flex, Stack, Button, Box, Heading } from '@chakra-ui/react';
 
 function LandingPage() {
   const history = useHistory();
@@ -19,24 +19,58 @@ function LandingPage() {
       bg="teal.400"
       color="white"
     >
-      <Stack spacing={5} direction="column" align="center">
+      <Flex
+        direction="column"
+        justifyContent="space-evenly"
+        bg="teal.50"
+        width="25vw"
+        height="20vh"
+        borderRadius="md"
+        boxShadow="md"
+        align="center"
+        mx="2vw"
+      >
+        <Heading as="h2" size="lg" color="black" textAlign="center">
+          Play Locally
+        </Heading>
+        <Box color="black" width="20ww">
+          Play 1 vs 1 on the same computer
+        </Box>
         <Button
-          colorScheme="blackAlpha"
+          colorScheme="teal"
           color="white"
           boxShadow="lg"
           onClick={() => clickLocal()}
         >
-          Play Locally
+          Play
         </Button>
+      </Flex>
+      <Flex
+        direction="column"
+        justifyContent="space-evenly"
+        bg="teal.50"
+        width="25vw"
+        height="20vh"
+        borderRadius="md"
+        boxShadow="md"
+        align="center"
+        mx="2vw"
+      >
+        <Heading as="h2" size="lg" color="black" textAlign="center">
+          Play Online
+        </Heading>
+        <Box color="black" width="20ww">
+          Play 1 vs 1 online, with friends or strangers
+        </Box>
         <Button
-          colorScheme="blackAlpha"
+          colorScheme="teal"
           color="white"
           boxShadow="lg"
           onClick={() => clickOnline()}
         >
-          Play Online
+          Play
         </Button>
-      </Stack>
+      </Flex>
     </Flex>
   );
 }
