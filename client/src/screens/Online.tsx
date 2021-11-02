@@ -141,6 +141,14 @@ function Online() {
     });
 
     socket.on('abandonRoom', function (room) {
+      const resetUserInfo: IPlayersInfo = {
+        playerOneName: allGameInfo.playerOneName,
+        playerOneColour: '',
+        playerTwoName: '',
+        playerTwoColour: '',
+      };
+      dispatch({ type: 'PLAYERSINFO', payload: { ...resetUserInfo } });
+      setGameStatus('');
       history.push('/landing');
     });
   }, []);
@@ -386,6 +394,14 @@ function Online() {
   const leaveRoom = () => {
     socket.emit('leaveRoom', allGameInfo);
     history.push('/landing');
+    const resetUserInfo: IPlayersInfo = {
+      playerOneName: allGameInfo.playerOneName,
+      playerOneColour: '',
+      playerTwoName: '',
+      playerTwoColour: '',
+    };
+    dispatch({ type: 'PLAYERSINFO', payload: { ...resetUserInfo } });
+    setGameStatus('');
   };
 
   function ModalWinner() {

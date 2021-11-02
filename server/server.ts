@@ -16,7 +16,7 @@ const io = new Server(httpServer, {
 });
 
 let roomsList: IRoom[] = [];
-const roomsListName: string[] = [];
+let roomsListName: string[] = [];
 
 const playerJoin = (socket: any, room: IRoom) => {
   socket.join(room.id);
@@ -117,14 +117,46 @@ io.on('connection', (socket: any) => {
   });
 
   socket.on('leaveRoom', (room: IRoom) => {
+    console.log('leaving');
+    console.log(room);
     if (room.id) {
       socket.broadcast.in(room.id).emit('abandonRoom', room);
-      io.of('/').in(room.id).disconnectSockets();
       roomsList = roomsList.filter(
         (prevRoom: IRoom) => prevRoom.id !== room.id,
       );
+      roomsListName = roomsListName.filter(
+        (roomName: string) => roomName !== room.id,
+      );
     }
     io.emit('roomList', roomsList);
+  });
+
+  socket.on('disconnect', () => {
+    let roomLeft: any = '';
+    const otherRooms: any = [];
+    roomsList.forEach((room: IRoom) => {
+      if (room.id === socket.roomId) {
+        roomLeft = room;
+      } else {
+        otherRooms.push(room);
+      }
+    });
+    console.log('roomLeft', roomLeft);
+    console.log('otherRooms', otherRooms);
+    if (roomLeft !== '0') {
+      roomsList = otherRooms;
+      roomsListName = roomsListName.filter(
+        (roomName: string) => roomName !== roomLeft.id,
+      );
+      let targetUser = '';
+      if (roomLeft.playerOneSocketId === socket.id) {
+        targetUser = roomLeft.playerTwoSocketId;
+      } else {
+        targetUser = roomLeft.playerOneSocketId;
+      }
+      socket.broadcast.to(targetUser).emit('abandonRoom', roomLeft);
+      roomLeft = '';
+    }
   });
 });
 
