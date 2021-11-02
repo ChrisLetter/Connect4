@@ -50,14 +50,14 @@ function JoinRoom(props: { [key: string]: string }) {
         textAlign={['center', 'center', 'left', 'left']}
         pb="3vh"
       >
-        Join a Room
+        Join a Friend
       </Heading>
       <FormControl id="first-name" colorScheme="teal" isRequired pb="3vh">
         <Input
           value={roomName}
           onChange={(e) => setRoomName(e.target.value)}
           boxShadow="lg"
-          placeholder="Enter The Room Name"
+          placeholder="Room Name"
           color="gray.600"
           bg="teal.50"
         />
@@ -91,7 +91,7 @@ function JoinRoom(props: { [key: string]: string }) {
           }
         }}
       >
-        Join Room
+        Join
       </Button>
     </Flex>
   );

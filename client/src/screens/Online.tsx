@@ -44,7 +44,7 @@ function Online() {
     },
   };
   const [roomName, setRoomName] = useState('');
-  const [gameStatus, setGameStatus] = useState('');
+  const [gameStatus, setGameStatus] = useState('waiting-for-other-user');
   const [allGameInfo, setAllGameInfo] = useState(initialStateGame);
   const [playerOneName, setPlayerOneName] = useState('');
   const [playerTwoName, setPlayerTwoName] = useState('');

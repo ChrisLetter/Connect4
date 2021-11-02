@@ -17,6 +17,7 @@ const io = new Server(httpServer, {
 
 let roomsList: IRoom[] = [];
 let roomsListName: string[] = [];
+let availableRooms: string[] = [];
 
 const playerJoin = (socket: any, room: IRoom) => {
   socket.join(room.id);
@@ -30,6 +31,10 @@ const joinGame = (socket: any, roomName: string) => {
   );
   room.playerTwoName = socket.username;
   room.playerTwoSocketId = socket.id;
+  availableRooms = availableRooms.filter(
+    (nameAvailableRoom: string) => nameAvailableRoom !== room.id,
+  );
+  io.emit('availableRooms', availableRooms);
   socket.join(room.id);
   socket.roomId = room.id;
   const updatedRooms = roomsList.map((oldRoom) => {
@@ -54,6 +59,10 @@ io.on('connection', (socket: any) => {
 
   socket.on('getRooms', () => {
     socket.emit('roomList', roomsListName);
+  });
+
+  socket.on('getAvailableRooms', () => {
+    socket.emit('availableRooms', availableRooms);
   });
 
   socket.on('setUsername', (data: string) => {
@@ -83,7 +92,9 @@ io.on('connection', (socket: any) => {
     playerJoin(socket, newRoom);
     roomsList.push(newRoom);
     roomsListName.push(newRoom.id);
+    availableRooms.push(newRoom.id);
     io.emit('roomList', roomsListName);
+    io.emit('availableRooms', availableRooms);
   });
 
   socket.on('joinRoom', (room: string) => {
@@ -141,11 +152,12 @@ io.on('connection', (socket: any) => {
         otherRooms.push(room);
       }
     });
-    console.log('roomLeft', roomLeft);
-    console.log('otherRooms', otherRooms);
     if (roomLeft !== '0') {
       roomsList = otherRooms;
       roomsListName = roomsListName.filter(
+        (roomName: string) => roomName !== roomLeft.id,
+      );
+      availableRooms = availableRooms.filter(
         (roomName: string) => roomName !== roomLeft.id,
       );
       let targetUser = '';
@@ -157,6 +169,8 @@ io.on('connection', (socket: any) => {
       socket.broadcast.to(targetUser).emit('abandonRoom', roomLeft);
       roomLeft = '';
     }
+    io.emit('availableRooms', availableRooms);
+    io.emit('roomList', roomsList);
   });
 });
 

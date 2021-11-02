@@ -64,7 +64,7 @@ function CreateRoom(props: { [key: string]: string }) {
           value={roomName}
           onChange={(e) => setRoomName(e.target.value)}
           boxShadow="lg"
-          placeholder="Enter The Room Name"
+          placeholder="Room Name"
           color="gray.600"
           bg="teal.50"
         />
@@ -99,7 +99,7 @@ function CreateRoom(props: { [key: string]: string }) {
           }
         }}
       >
-        Create Room
+        Create
       </Button>
     </Flex>
   );

@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { FormControl, Button, Input, Flex, useToast } from '@chakra-ui/react';
 import CreateRoom from './../components/CreateRoom';
 import JoinRoom from './../components/JoinRoom';
+import AvailableRooms from './../components/AvailableRooms';
 
 function WaitingRoomOnline() {
   const toast = useToast();
@@ -53,9 +54,10 @@ function WaitingRoomOnline() {
           </Button>
         </Flex>
       ) : (
-        <Flex direction="row" minW="60vw" justifyContent="space-between">
+        <Flex direction="row" minW="80vw" justifyContent="space-between">
           <CreateRoom playerName={userName} />
           <JoinRoom playerName={userName} />
+          <AvailableRooms playerName={userName} />
         </Flex>
       )}
     </Flex>
