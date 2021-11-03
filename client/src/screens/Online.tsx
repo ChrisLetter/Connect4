@@ -173,14 +173,6 @@ function Online() {
       setWhoseTurn(newInfo.game.currentTurn);
       setDraw(true);
     });
-
-    return () => {
-      socket.off('joinedRoom');
-      socket.off('playGame');
-      socket.off('new-turn-info');
-      socket.off('winner-name');
-      socket.off('abandonRoom');
-    };
   }, []);
 
   function clicked(numberCol: string) {
@@ -215,10 +207,7 @@ function Online() {
         newRoom.game.column1 = newArr;
         newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
-        // here I check for 41 moves instead of 42 because allGameInfo
-        // is one move behind. If I enter in this loop it means that
-        // nobody won the game making the 42nd move.
-        if (allGameInfo.game.moves === 41) {
+        if (allGameInfo.game.moves === 42) {
           socket.emit('draw', allGameInfo);
         }
       }
@@ -254,7 +243,7 @@ function Online() {
         newRoom.game.column2 = newArr;
         newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
-        if (allGameInfo.game.moves === 41) {
+        if (allGameInfo.game.moves === 42) {
           socket.emit('draw', allGameInfo);
         }
       }
@@ -290,7 +279,7 @@ function Online() {
         newRoom.game.column3 = newArr;
         newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
-        if (allGameInfo.game.moves === 41) {
+        if (allGameInfo.game.moves === 42) {
           socket.emit('draw', allGameInfo);
         }
       }
@@ -326,7 +315,7 @@ function Online() {
         newRoom.game.column4 = newArr;
         newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
-        if (allGameInfo.game.moves === 41) {
+        if (allGameInfo.game.moves === 42) {
           socket.emit('draw', allGameInfo);
         }
       }
@@ -362,7 +351,7 @@ function Online() {
         newRoom.game.column5 = newArr;
         newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
-        if (allGameInfo.game.moves === 41) {
+        if (allGameInfo.game.moves === 42) {
           socket.emit('draw', allGameInfo);
         }
       }
@@ -398,7 +387,7 @@ function Online() {
         newRoom.game.column6 = newArr;
         newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
-        if (allGameInfo.game.moves === 41) {
+        if (allGameInfo.game.moves === 42) {
           socket.emit('draw', allGameInfo);
         }
       }
@@ -434,7 +423,7 @@ function Online() {
         newRoom.game.column7 = newArr;
         newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
-        if (allGameInfo.game.moves === 41) {
+        if (allGameInfo.game.moves === 42) {
           socket.emit('draw', allGameInfo);
         }
       }
