@@ -14,7 +14,7 @@ import {
 function AvailableRooms(props: { [key: string]: string }) {
   const history = useHistory();
   const userName = props.playerName;
-  const [rooms, setRooms] = useState(['']);
+  const [rooms, setRooms] = useState([]);
 
   useEffect(() => {
     socket.emit('getAvailableRooms');

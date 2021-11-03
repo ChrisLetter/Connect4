@@ -28,7 +28,7 @@ function FormPlayersNameLocal() {
         color="white"
         boxShadow="lg"
         mt={4}
-        width="10vw"
+        width={['35vw', '20vw', '15vw', '10vw']}
         type="submit"
         onClick={() => {
           if (
@@ -70,9 +70,19 @@ function FormPlayersNameLocal() {
   }
 
   return (
-    <Flex direction="column" mt="-15vh" alignItems="center">
-      <Flex direction="row" pb="8vh">
-        <Flex direction="column" alignItems="center" width="15vw" mr="10vh">
+    <Flex direction="column" alignItems="center">
+      <Flex
+        direction={['column', 'column', 'column', 'row']}
+        width={['85vw', '85vw', '65vw', '45vw']}
+        justifyContent="space-evenly"
+        alignItems="center"
+      >
+        <Flex
+          direction="column"
+          alignItems="center"
+          width={['70vw', '60vw', '30vw', '15vw']}
+          pb={['4vh', '4vh', '5vh', '5vh']}
+        >
           <Heading
             as="h2"
             size="lg"
@@ -110,7 +120,12 @@ function FormPlayersNameLocal() {
             <option value="pink">Pink</option>
           </Select>
         </Flex>
-        <Flex direction="column" alignItems="center" width="15vw">
+        <Flex
+          direction="column"
+          alignItems="center"
+          width={['70vw', '60vw', '30vw', '15vw']}
+          pb={['4vh', '4vh', '5vh', '5vh']}
+        >
           <Heading
             as="h2"
             size="lg"
