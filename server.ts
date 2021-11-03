@@ -1,5 +1,5 @@
 import * as express from 'express';
-import { Server } from 'socket.io';
+import { Server, Socket } from 'socket.io';
 import { createServer } from 'http';
 import { IRoom } from './interfaces/interfaces';
 
@@ -15,21 +15,28 @@ const io = new Server(httpServer, {
   },
 });
 
+interface ISocket extends Socket {
+  roomId?: string;
+  username?: string;
+}
+
 let roomsList: IRoom[] = [];
 let roomsListName: string[] = [];
 let availableRooms: string[] = [];
 
-const playerJoin = (socket: any, room: IRoom) => {
+const playerJoin = (socket: ISocket, room: IRoom) => {
   socket.join(room.id);
   socket.roomId = room.id;
   socket.emit('joinedRoom', room);
 };
 
-const joinGame = (socket: any, roomName: string) => {
+const joinGame = (socket: ISocket, roomName: string) => {
   const [room] = roomsList.filter(
     (roomFromList: IRoom) => roomFromList.id === roomName,
   );
-  room.playerTwoName = socket.username;
+  if (socket.username) {
+    room.playerTwoName = socket.username;
+  }
   room.playerTwoSocketId = socket.id;
   availableRooms = availableRooms.filter(
     (nameAvailableRoom: string) => nameAvailableRoom !== room.id,
@@ -54,7 +61,7 @@ const getRoom = (roomName: string) => {
   return room;
 };
 
-io.on('connection', (socket: any) => {
+io.on('connection', (socket: ISocket) => {
   io.emit('roomList', roomsListName);
 
   socket.on('getRooms', () => {
@@ -70,9 +77,9 @@ io.on('connection', (socket: any) => {
   });
 
   socket.on('createRoom', (room: string) => {
-    const newRoom = {
+    const newRoom: IRoom = {
       id: room,
-      playerOneName: socket.username,
+      playerOneName: socket.username ? socket.username : '',
       playerOneSocketId: socket.id,
       playerTwoName: '',
       playerTwoSocketId: '',
@@ -89,6 +96,7 @@ io.on('connection', (socket: any) => {
         column7: ['0', '0', '0', '0', '0', '0'],
       },
     };
+
     playerJoin(socket, newRoom);
     roomsList.push(newRoom);
     roomsListName.push(newRoom.id);
@@ -103,19 +111,40 @@ io.on('connection', (socket: any) => {
   });
 
   socket.on('ready', () => {
-    const room: IRoom = getRoom(socket.roomId);
-    if (room && room.playerTwoSocketId) {
-      io.in(socket.roomId).emit('playGame', room);
+    if (socket.roomId) {
+      const room: IRoom = getRoom(socket.roomId);
+      if (room && room.playerTwoSocketId) {
+        io.in(socket.roomId).emit('playGame', room);
+      }
     }
   });
 
   socket.on('turn-played', (newRoom: IRoom) => {
-    io.in(socket.roomId).emit('new-turn-info', newRoom);
+    if (socket.roomId) {
+      io.in(socket.roomId).emit('new-turn-info', newRoom);
+    }
   });
 
   socket.on('we-have-a-winner', (winnerName: string) => {
-    const room: IRoom = getRoom(socket.roomId);
+    if (socket.roomId) {
+      const room: IRoom = getRoom(socket.roomId);
+      room.game.winner = '0';
+      room.game.moves = 0;
+      const emptyColumn = ['0', '0', '0', '0', '0', '0'];
+      room.game.column1 = emptyColumn;
+      room.game.column2 = emptyColumn;
+      room.game.column3 = emptyColumn;
+      room.game.column4 = emptyColumn;
+      room.game.column5 = emptyColumn;
+      room.game.column6 = emptyColumn;
+      room.game.column7 = emptyColumn;
+      io.in(socket.roomId).emit('winner-name', winnerName, room);
+    }
+  });
+
+  socket.on('draw', (room: IRoom) => {
     room.game.winner = '0';
+    room.game.moves = 0;
     const emptyColumn = ['0', '0', '0', '0', '0', '0'];
     room.game.column1 = emptyColumn;
     room.game.column2 = emptyColumn;
@@ -124,7 +153,7 @@ io.on('connection', (socket: any) => {
     room.game.column5 = emptyColumn;
     room.game.column6 = emptyColumn;
     room.game.column7 = emptyColumn;
-    io.in(socket.roomId).emit('winner-name', winnerName, room);
+    io.in(room.id).emit('draw-no-more-spaces', room);
   });
 
   socket.on('leaveRoom', (room: IRoom) => {
@@ -150,7 +179,7 @@ io.on('connection', (socket: any) => {
         otherRooms.push(room);
       }
     });
-    if (roomLeft !== '0') {
+    if (roomLeft !== '') {
       roomsList = otherRooms;
       roomsListName = roomsListName.filter(
         (roomName: string) => roomName !== roomLeft.id,
