@@ -18,7 +18,6 @@ helperFunc.checkIfColumnHasSpace = (arr: string[]): boolean => {
   return arr[5] === '0' ? true : false;
 };
 
-// I created this function so I can have the rows, columns and diagonals possible
 helperFunc.checkForWinner = (
   column1: string[],
   column2: string[],
@@ -206,5 +205,28 @@ function checkIfLineHas4(arr: string[]) {
   }
   return winner;
 }
+
+helperFunc.checkIfThereAreMovesAvailable = (
+  col1: string[],
+  col2: string[],
+  col3: string[],
+  col4: string[],
+  col5: string[],
+  col6: string[],
+  col7: string[],
+) => {
+  if (
+    !col1.includes('0') &&
+    !col2.includes('0') &&
+    !col3.includes('0') &&
+    !col4.includes('0') &&
+    !col5.includes('0') &&
+    !col6.includes('0') &&
+    !col7.includes('0')
+  ) {
+    return false;
+  }
+  return true;
+};
 
 export default helperFunc;

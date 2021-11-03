@@ -1,6 +1,6 @@
 import React from 'react';
 import { useHistory } from 'react-router-dom';
-import { Flex, Stack, Button, Box, Heading } from '@chakra-ui/react';
+import { Flex, Button, Box, Heading } from '@chakra-ui/react';
 
 function LandingPage() {
   const history = useHistory();

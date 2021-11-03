@@ -2,11 +2,7 @@ import { Flex, Heading, Box } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
 import { IPlayersInfo } from './../interfaces/interfaces';
 
-interface IProps {
-  player: string;
-}
-
-function UserDashboard(props: IProps) {
+function UserDashboard(props: { [key: string]: string }) {
   const userInfos = useSelector((state: IPlayersInfo) => {
     return state;
   });

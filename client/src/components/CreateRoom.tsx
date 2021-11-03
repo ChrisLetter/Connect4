@@ -28,7 +28,6 @@ function CreateRoom(props: { [key: string]: string }) {
     socket.emit('getRooms');
     socket.on('roomList', (data) => {
       setRooms(data);
-      console.log('roomList', data);
     });
     return () => {
       socket.off('roomList');
@@ -65,7 +64,6 @@ function CreateRoom(props: { [key: string]: string }) {
         isRequired
         pb={['1vh', '1vh', '1vh', '2vh']}
         width={['50vw', '50vw', '50vw', '20vw']}
-
       >
         <Input
           value={roomName}

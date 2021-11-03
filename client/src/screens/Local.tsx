@@ -153,7 +153,7 @@ function Local() {
     } else if (whoseTurn === '2' && actionWasPossible) {
       setWhoseTurn('1');
     }
-    const movesAvailable = checkIfThereAreMovesAvailable(
+    const movesAvailable = helperFunc.checkIfThereAreMovesAvailable(
       column1,
       column2,
       column3,
@@ -165,29 +165,6 @@ function Local() {
     if (!movesAvailable) {
       resetGame();
     }
-  }
-
-  function checkIfThereAreMovesAvailable(
-    col1: string[],
-    col2: string[],
-    col3: string[],
-    col4: string[],
-    col5: string[],
-    col6: string[],
-    col7: string[],
-  ) {
-    if (
-      !col1.includes('0') &&
-      !col2.includes('0') &&
-      !col3.includes('0') &&
-      !col4.includes('0') &&
-      !col5.includes('0') &&
-      !col6.includes('0') &&
-      !col7.includes('0')
-    ) {
-      return false;
-    }
-    return true;
   }
 
   function resetGame() {
@@ -254,10 +231,7 @@ function Local() {
       bg="teal.400"
     >
       <ModalWinner />
-      <Flex
-        direction="column"
-        align="center"
-      >
+      <Flex direction="column" align="center">
         <TriangleDownIcon
           pb="2vh"
           w="5vh"

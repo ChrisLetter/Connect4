@@ -46,9 +46,6 @@ function Online() {
   const [roomName, setRoomName] = useState('');
   const [gameStatus, setGameStatus] = useState('waiting-for-other-user');
   const [allGameInfo, setAllGameInfo] = useState(initialStateGame);
-  const [playerOneName, setPlayerOneName] = useState('');
-  const [playerTwoName, setPlayerTwoName] = useState('');
-  const [currentUserNumber, setCurrentUserNumber] = useState('0');
   const initialStateColumn = ['0', '0', '0', '0', '0', '0'];
   const [column1, setColumn1] = useState(initialStateColumn);
   const [column2, setColumn2] = useState(initialStateColumn);
@@ -84,7 +81,6 @@ function Online() {
         playerTwoColour: 'blue',
       };
       dispatch({ type: 'PLAYERSINFO', payload: { ...userChoices } });
-      setUsersInfo(room);
       setAllGameInfo(room);
     });
 
@@ -114,7 +110,6 @@ function Online() {
     });
 
     socket.on('winner-name', function (name: string, newInfo: IRoom) {
-      console.log('newinfo', newInfo);
       setAllGameInfo(newInfo);
       setColumn1(newInfo.game.column1);
       setColumn2(newInfo.game.column2);
@@ -148,21 +143,18 @@ function Online() {
         playerTwoColour: '',
       };
       dispatch({ type: 'PLAYERSINFO', payload: { ...resetUserInfo } });
-      setGameStatus('');
+      setGameStatus('waiting-for-other-user');
       history.push('/landing');
     });
-  }, []);
 
-  function setUsersInfo(room: IRoom) {
-    // TODO: check if I really need the username of the users
-    setPlayerOneName(room.playerOneName);
-    setPlayerTwoName(room.playerTwoName);
-    if (socket.id === room.playerOneSocketId) {
-      setCurrentUserNumber('1');
-    } else {
-      setCurrentUserNumber('2');
-    }
-  }
+    return () => {
+      socket.off('joinedRoom');
+      socket.off('playGame');
+      socket.off('new-turn-info');
+      socket.off('winner-name');
+      socket.off('abandonRoom');
+    };
+  }, []);
 
   function clicked(numberCol: string) {
     if (
@@ -401,7 +393,7 @@ function Online() {
       playerTwoColour: '',
     };
     dispatch({ type: 'PLAYERSINFO', payload: { ...resetUserInfo } });
-    setGameStatus('');
+    setGameStatus('waiting-for-other-user');
   };
 
   function ModalWinner() {

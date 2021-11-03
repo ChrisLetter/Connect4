@@ -1,15 +1,7 @@
 import { useHistory } from 'react-router-dom';
 import socket from '../services/socketConnection';
 import { useState, useEffect } from 'react';
-import {
-  FormControl,
-  Button,
-  Input,
-  Flex,
-  Heading,
-  useToast,
-  Box,
-} from '@chakra-ui/react';
+import { Flex, Heading, Box } from '@chakra-ui/react';
 
 function AvailableRooms(props: { [key: string]: string }) {
   const history = useHistory();
@@ -22,7 +14,7 @@ function AvailableRooms(props: { [key: string]: string }) {
       setRooms(data);
     });
     return () => {
-      socket.off('roomList');
+      socket.off('availableRooms');
     };
   }, []);
 
@@ -68,8 +60,7 @@ function AvailableRooms(props: { [key: string]: string }) {
             borderColor="gray.400"
             onClick={() => joinRoom(room)}
           >
-            {' '}
-            {room}{' '}
+            {room}
           </Box>
         ))}
       </Box>

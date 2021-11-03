@@ -1,4 +1,3 @@
-import React from 'react';
 import { Heading, Flex, Spinner } from '@chakra-ui/react';
 
 function WaitingForOtherUser(props: { [key: string]: string }) {
