@@ -147,6 +147,31 @@ function Online() {
       history.push('/landing');
     });
 
+    socket.on('draw-no-more-spaces', function (newInfo: IRoom) {
+      setAllGameInfo(newInfo);
+      setColumn1(newInfo.game.column1);
+      setColumn2(newInfo.game.column2);
+      setColumn3(newInfo.game.column3);
+      setColumn4(newInfo.game.column4);
+      setColumn5(newInfo.game.column5);
+      setColumn6(newInfo.game.column6);
+      setColumn7(newInfo.game.column7);
+      if (
+        newInfo.game.currentTurn === '1' &&
+        socket.id === newInfo.playerOneSocketId
+      ) {
+        setGameStatus('your-turn');
+      } else if (
+        newInfo.game.currentTurn === '2' &&
+        socket.id === newInfo.playerTwoSocketId
+      ) {
+        setGameStatus('your-turn');
+      } else {
+        setGameStatus('other-player-turn');
+      }
+      setWhoseTurn(newInfo.game.currentTurn);
+    });
+
     return () => {
       socket.off('joinedRoom');
       socket.off('playGame');
@@ -186,7 +211,14 @@ function Online() {
           newRoom.game.currentTurn = '1';
         }
         newRoom.game.column1 = newArr;
+        newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
+        // here I check for 41 moves instead of 42 because allGameInfo
+        // is one move behind. If I enter in this loop it means that
+        // nobody won the game making the 42nd move.
+        if (allGameInfo.game.moves === 41) {
+          socket.emit('draw', allGameInfo);
+        }
       }
     }
     if (
@@ -218,7 +250,11 @@ function Online() {
           newRoom.game.currentTurn = '1';
         }
         newRoom.game.column2 = newArr;
+        newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
+        if (allGameInfo.game.moves === 41) {
+          socket.emit('draw', allGameInfo);
+        }
       }
     }
     if (
@@ -250,7 +286,11 @@ function Online() {
           newRoom.game.currentTurn = '1';
         }
         newRoom.game.column3 = newArr;
+        newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
+        if (allGameInfo.game.moves === 41) {
+          socket.emit('draw', allGameInfo);
+        }
       }
     }
     if (
@@ -282,7 +322,11 @@ function Online() {
           newRoom.game.currentTurn = '1';
         }
         newRoom.game.column4 = newArr;
+        newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
+        if (allGameInfo.game.moves === 41) {
+          socket.emit('draw', allGameInfo);
+        }
       }
     }
     if (
@@ -314,7 +358,11 @@ function Online() {
           newRoom.game.currentTurn = '1';
         }
         newRoom.game.column5 = newArr;
+        newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
+        if (allGameInfo.game.moves === 41) {
+          socket.emit('draw', allGameInfo);
+        }
       }
     }
     if (
@@ -346,7 +394,11 @@ function Online() {
           newRoom.game.currentTurn = '1';
         }
         newRoom.game.column6 = newArr;
+        newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
+        if (allGameInfo.game.moves === 41) {
+          socket.emit('draw', allGameInfo);
+        }
       }
     }
     if (
@@ -378,7 +430,11 @@ function Online() {
           newRoom.game.currentTurn = '1';
         }
         newRoom.game.column7 = newArr;
+        newRoom.game.moves++;
         socket.emit('turn-played', newRoom);
+        if (allGameInfo.game.moves === 41) {
+          socket.emit('draw', allGameInfo);
+        }
       }
     }
   }
