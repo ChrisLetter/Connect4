@@ -128,8 +128,6 @@ io.on('connection', (socket: any) => {
   });
 
   socket.on('leaveRoom', (room: IRoom) => {
-    console.log('leaving');
-    console.log(room);
     if (room.id) {
       socket.broadcast.in(room.id).emit('abandonRoom', room);
       roomsList = roomsList.filter(
