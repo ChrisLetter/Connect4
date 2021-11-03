@@ -14,21 +14,21 @@ function LandingPage() {
   return (
     <Flex
       align="center"
-      justify="center"
-      minH="85vh"
+      justifyContent="space-evenly"
+      height="85vh"
       bg="teal.400"
       color="white"
+      direction={['column', 'column', 'column', 'row']}
     >
       <Flex
         direction="column"
         justifyContent="space-evenly"
         bg="teal.50"
-        width="25vw"
+        width={['85vw', '70vw', '50vw', '30vw']}
         height="20vh"
         borderRadius="md"
         boxShadow="md"
         align="center"
-        mx="2vw"
       >
         <Heading as="h2" size="lg" color="black" textAlign="center">
           Play Locally
@@ -49,18 +49,17 @@ function LandingPage() {
         direction="column"
         justifyContent="space-evenly"
         bg="teal.50"
-        width="25vw"
+        width={['85vw', '70vw', '50vw', '30vw']}
         height="20vh"
         borderRadius="md"
         boxShadow="md"
         align="center"
-        mx="2vw"
       >
         <Heading as="h2" size="lg" color="black" textAlign="center">
           Play Online
         </Heading>
         <Box color="black" width="20ww">
-          Play 1 vs 1 online, with friends or strangers
+          Play online, with friends or strangers
         </Box>
         <Button
           colorScheme="teal"
