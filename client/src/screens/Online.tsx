@@ -56,6 +56,7 @@ function Online() {
   const [column7, setColumn7] = useState(initialStateColumn);
   const [whoseTurn, setWhoseTurn] = useState('1');
   const [currentWinner, setCurrentWinner] = useState('0');
+  const [draw, setDraw] = useState(false);
 
   useEffect(() => {
     socket.on('joinedRoom', function (room: IRoom) {
@@ -170,6 +171,7 @@ function Online() {
         setGameStatus('other-player-turn');
       }
       setWhoseTurn(newInfo.game.currentTurn);
+      setDraw(true);
     });
 
     return () => {
@@ -504,9 +506,60 @@ function Online() {
     );
   }
 
+  function ModalDraw() {
+    const { isOpen, onOpen, onClose } = useDisclosure();
+    const refDraw: React.LegacyRef<HTMLButtonElement> = useRef(null);
+    useEffect(() => {
+      if (refDraw.current && draw) refDraw.current.click();
+    }, []);
+    return (
+      <>
+        <Button
+          onClick={onOpen}
+          ref={refDraw}
+          position="absolute"
+          visibility="hidden"
+        >
+          Trigger modal
+        </Button>
+        <Modal isOpen={isOpen} onClose={onClose} isCentered>
+          <ModalOverlay />
+          <ModalContent>
+            <ModalHeader textAlign="center">Draw!</ModalHeader>
+            <ModalCloseButton />
+            <ModalFooter justifyContent="center">
+              <Button
+                colorScheme="green"
+                mr={3}
+                onClick={() => {
+                  onClose();
+                  setDraw(false);
+                }}
+              >
+                Play Again
+              </Button>
+              <Button
+                colorScheme="red"
+                mr={3}
+                onClick={() => {
+                  onClose();
+                  setDraw(false);
+                  leaveRoom();
+                }}
+              >
+                Exit
+              </Button>
+            </ModalFooter>
+          </ModalContent>
+        </Modal>
+      </>
+    );
+  }
+
   return (
     <Flex align="center" minH="85vh" bg="teal.400" justify="space-evenly">
       <ModalWinner />
+      <ModalDraw />
       {gameStatus === 'waiting-for-other-user' ? (
         <WaitingForOtherUser roomName={roomName} />
       ) : (
