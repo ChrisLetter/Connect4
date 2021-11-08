@@ -1,4 +1,5 @@
 import * as express from 'express';
+import {Response, Request}  from 'express';
 import { Server, Socket } from 'socket.io';
 import { createServer } from 'http';
 import { IRoom } from './interfaces/interfaces';
@@ -8,6 +9,7 @@ require('dotenv').config();
 const PORT = process.env.PORT || 6000;
 const app = express();
 const httpServer = createServer(app);
+app.get('/test', (req: Request, res: Response) => {res.send("hello")})
 
 const io = new Server(httpServer, {
   cors: {
