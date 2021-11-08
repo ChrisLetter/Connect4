@@ -4,7 +4,7 @@
 
 Connect4 is a multiplayer game that - as the name suggests - allows users to play Connect four. Users can play locally on the same machine or online from different machines. The game is fully responsive.
 
-[Visit website](https://connect4-cl.netlify.app/landing).
+[Visit the website](https://connect4-cl.netlify.app/)
 
 ### Tech Stack
 
