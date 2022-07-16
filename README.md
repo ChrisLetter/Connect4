@@ -18,25 +18,25 @@ Typescript - React - Chakra UI - Socket.io - Redux - Express
 
 1. Clone the repo
 
-```
+```bash
   git clone https://github.com/ChrisLetter/Connect4.git
   cd Connect4
 ```
 
 2. Install the dependencies in the server folder and start the server
 
-```
+```bash
   cd server
-  npm i
+  npm install
   nodemon
 ```
 
 3. Install the dependencies in the client folder and run the app
 
-```
+```bash
   cd client
-  npm i
+  npm install
   npm start
 ```
 
-4. If you want to test the online multiplayer functionality, open another browser and type the url of your client. Create a room from one of your browser and join with the other one, in this way you will be able to simulate the online functionality of the game.
+4. If you want to test the online multiplayer functionality locally, you can do that by visiting the client's url from another browser. If you create a room in one browser and then join that room from another browser, you will be able to simulate the online functionality of the game.
