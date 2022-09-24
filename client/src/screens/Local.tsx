@@ -15,9 +15,9 @@ import { TriangleDownIcon } from '@chakra-ui/icons';
 import Column from '../components/Column';
 import UserDashboard from '../components/UserDashboard';
 import { useState, useEffect, useRef } from 'react';
-import helperFunc from '../utils/helperFunctions';
+import helperFunc from '../utils/helper-functions';
 import { useSelector } from 'react-redux';
-import { IPlayersInfo } from './../interfaces/interfaces';
+import { IPlayersInfo } from '../interfaces/interfaces';
 
 function Local() {
   const userInfos = useSelector((state: IPlayersInfo) => {

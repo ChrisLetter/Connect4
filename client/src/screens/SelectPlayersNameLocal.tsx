@@ -1,5 +1,5 @@
 import { Flex } from '@chakra-ui/react';
-import FormPlayersNameLocal from './../components/FormPlayersNameLocal';
+import FormPlayersNameLocal from '../components/FormPlayersNameLocal';
 
 function SelectPlayersNameLocal() {
   return (

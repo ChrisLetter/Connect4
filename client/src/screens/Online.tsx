@@ -11,14 +11,14 @@ import {
   ModalCloseButton,
 } from '@chakra-ui/react';
 import { useEffect, useState, useRef } from 'react';
-import socket from './../services/socketConnection';
-import WaitingForOtherUser from './../components/WaitingForOtherUser';
-import UserDashboard from './../components/UserDashboard';
+import socket from '../services/socket-connection';
+import WaitingForOtherUser from '../components/WaitingForOtherUser';
+import UserDashboard from '../components/UserDashboard';
 import Column from '../components/Column';
 import { TriangleDownIcon } from '@chakra-ui/icons';
 import { useDispatch } from 'react-redux';
-import { IPlayersInfo, IRoom } from './../interfaces/interfaces';
-import helperFunc from './../utils/helperFunctions';
+import { IPlayersInfo, IRoom } from '../interfaces/interfaces';
+import helperFunc from '../utils/helper-functions';
 import { useHistory } from 'react-router-dom';
 
 function Online() {
@@ -62,7 +62,6 @@ function Online() {
     socket.on('joinedRoom', function (room: IRoom) {
       setRoomName(room.id);
       setGameStatus('waiting-for-other-user');
-      console.log('game', room);
       socket.emit('ready');
     });
 

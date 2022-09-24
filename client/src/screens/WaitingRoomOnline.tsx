@@ -7,9 +7,9 @@ import {
   useToast,
   Heading,
 } from '@chakra-ui/react';
-import CreateRoom from './../components/CreateRoom';
-import JoinRoom from './../components/JoinRoom';
-import AvailableRooms from './../components/AvailableRooms';
+import CreateRoom from '../components/CreateRoom';
+import JoinRoom from '../components/JoinRoom';
+import AvailableRooms from '../components/AvailableRooms';
 
 function WaitingRoomOnline() {
   const toast = useToast();

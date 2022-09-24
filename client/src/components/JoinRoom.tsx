@@ -1,5 +1,5 @@
 import { useHistory } from 'react-router-dom';
-import socket from '../services/socketConnection';
+import socket from '../services/socket-connection';
 import { useState, useEffect } from 'react';
 import {
   FormControl,

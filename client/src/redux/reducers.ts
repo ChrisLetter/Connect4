@@ -1,5 +1,5 @@
 import { playersInfoAction } from './actions';
-import { IPlayersInfo } from './../interfaces/interfaces';
+import { IPlayersInfo } from '../interfaces/interfaces';
 
 const initialState: IPlayersInfo = {
   playerOneName: '',

@@ -1,6 +1,6 @@
 import { Grid, GridItem } from '@chakra-ui/react';
 import { useSelector } from 'react-redux';
-import { IPlayersInfo } from './../interfaces/interfaces';
+import { IPlayersInfo } from '../interfaces/interfaces';
 
 interface IProps {
   clicked: () => void;

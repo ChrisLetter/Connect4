@@ -10,7 +10,7 @@ import {
 import { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
-import { IPlayersInfo } from './../interfaces/interfaces';
+import { IPlayersInfo } from '../interfaces/interfaces';
 
 function FormPlayersNameLocal() {
   const [playerOneName, setPlayerOneName] = useState('');

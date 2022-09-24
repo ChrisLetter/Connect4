@@ -1,4 +1,4 @@
-import { IPlayersInfo } from './../interfaces/interfaces';
+import { IPlayersInfo } from '../interfaces/interfaces';
 
 export type playersInfoAction = {
   type: 'PLAYERSINFO';
