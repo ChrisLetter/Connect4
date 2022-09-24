@@ -7,6 +7,11 @@ require('dotenv').config();
 
 const PORT = process.env.PORT || 6000;
 const app = express();
+
+app.get('/test', (req, res) => {
+  res.send('Server is up and running');
+});
+
 const httpServer = createServer(app);
 
 const io = new Server(httpServer, {
